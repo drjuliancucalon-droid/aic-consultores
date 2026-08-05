@@ -15,47 +15,85 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
   path="/"
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-mist dark:bg-navy-dark">
-    <NodeMotif class="pointer-events-none absolute -right-24 -top-10 h-[420px] w-[520px] text-navy/70 dark:text-white/20 sm:right-0" />
-    <div class="container-page relative py-20 sm:py-28">
-      <div class="max-w-2xl">
-        <p class="eyebrow animate-fadeUp">Consultoría interdisciplinaria en {site.ciudad}, {site.departamento}</p>
-        <h1 class="mt-4 animate-fadeUp font-display text-4xl leading-tight text-navy dark:text-white sm:text-5xl" style="animation-delay:80ms">
-          Orden financiero, cumplimiento y bienestar laboral para su empresa.
+  <section class="relative overflow-hidden mesh-navy">
+    <NodeMotif animated class="pointer-events-none absolute -right-16 -top-10 h-[460px] w-[560px] text-white/25 sm:-right-4 lg:right-8" />
+    <div class="container-page relative py-24 sm:py-32">
+      <div class="max-w-3xl">
+        <p class="eyebrow inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-gold-light backdrop-blur-sm" data-reveal>
+          <span class="relative flex h-1.5 w-1.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75"></span>
+            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold"></span>
+          </span>
+          Consultoría interdisciplinaria en {site.ciudad}, {site.departamento}
+        </p>
+        <h1
+          class="mt-6 font-display text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-[4.75rem]"
+          data-reveal
+          data-reveal-delay="80"
+        >
+          Orden financiero,
+          <span class="relative inline-block">
+            cumplimiento
+            <svg class="absolute -bottom-1 left-0 w-full text-gold" viewBox="0 0 200 9" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6.5C40 2 120 1 199 5.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+          </span>
+          y bienestar laboral para su empresa.
         </h1>
-        <p class="mt-5 animate-fadeUp text-lg leading-relaxed text-ink-soft dark:text-white/75" style="animation-delay:160ms">
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/75" data-reveal data-reveal-delay="160">
           {site.eslogan}
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-9 flex flex-wrap gap-3">
           <a href="/contacto/" class="btn-primary">Agendar diagnóstico inicial</a>
           <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-analytics-event="clic_whatsapp" data-analytics-origin="hero">
             <Icon name="whatsapp" class="h-4 w-4" /> Hablar por WhatsApp
           </a>
         </div>
-        <p class="mt-4 text-xs text-ink-soft dark:text-white/50">Diagnóstico de 30 minutos, sin costo y sin obligación.</p>
+        <p class="mt-5 text-xs text-white/50">Diagnóstico de 30 minutos, sin costo y sin obligación.</p>
+
+        <div class="mt-14 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-8" data-reveal data-reveal-delay="240">
+          <div>
+            <p class="font-display text-2xl text-white">3</p>
+            <p class="text-xs text-white/50">disciplinas coordinadas<br />en un solo acompañamiento</p>
+          </div>
+          <div>
+            <p class="font-display text-2xl text-white">30 min</p>
+            <p class="text-xs text-white/50">diagnóstico inicial,<br />sin costo</p>
+          </div>
+          <div>
+            <p class="font-display text-2xl text-white">100%</p>
+            <p class="text-xs text-white/50">revisión humana,<br />sin plantillas genéricas</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Selector de necesidad -->
   <section class="container-page py-14">
-    <h2 class="font-display text-2xl text-navy dark:text-white">¿Por dónde empezamos?</h2>
-    <p class="mt-1 text-ink-soft dark:text-white/70">Elija la opción más cercana a lo que necesita hoy.</p>
-    <div class="mt-6">
+    <h2 class="font-display text-2xl text-navy dark:text-white" data-reveal>¿Por dónde empezamos?</h2>
+    <p class="mt-1 text-ink-soft dark:text-white/70" data-reveal data-reveal-delay="60">Elija la opción más cercana a lo que necesita hoy.</p>
+    <div class="mt-6" data-reveal data-reveal-delay="120">
       <NeedSelector />
     </div>
   </section>
 
   <!-- Tres pilares -->
-  <section class="bg-navy py-20 dark:bg-navy-dark">
-    <div class="container-page">
-      <p class="eyebrow text-gold-light">Un solo acompañamiento, tres disciplinas coordinadas</p>
-      <h2 class="mt-2 max-w-2xl font-display text-3xl text-white">
+  <section class="relative overflow-hidden bg-navy py-20 dark:bg-navy-dark">
+    <NodeMotif class="pointer-events-none absolute -left-32 bottom-0 h-[380px] w-[460px] text-white/[0.06]" />
+    <div class="container-page relative">
+      <p class="eyebrow text-gold-light" data-reveal>Un solo acompañamiento, tres disciplinas coordinadas</p>
+      <h2 class="mt-2 max-w-2xl font-display text-3xl text-white" data-reveal data-reveal-delay="60">
         Ningún profesional trabaja aislado del resto del equipo.
       </h2>
       <div class="mt-10 grid gap-6 sm:grid-cols-3">
-        {pilares.map((p) => (
-          <PillarCard titulo={p.titulo} resumen={p.resumen} icono={p.icono as 'chart' | 'shield' | 'heart'} href={p.href} />
+        {pilares.map((p, i) => (
+          <PillarCard
+            titulo={p.titulo}
+            resumen={p.resumen}
+            icono={p.icono as 'chart' | 'shield' | 'heart'}
+            href={p.href}
+            accent={['#00897B', '#0D2640', '#C4901F'][i % 3]}
+            delay={i * 120}
+          />
         ))}
       </div>
     </div>
@@ -63,12 +101,12 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
 
   <!-- Sectores: construcción y comercio/servicios -->
   <section class="container-page py-20">
-    <h2 class="font-display text-3xl text-navy dark:text-white">Hecho para su sector</h2>
-    <p class="mt-2 max-w-2xl text-ink-soft dark:text-white/70">
+    <h2 class="font-display text-3xl text-navy dark:text-white" data-reveal>Hecho para su sector</h2>
+    <p class="mt-2 max-w-2xl text-ink-soft dark:text-white/70" data-reveal data-reveal-delay="60">
       Construcción y comercio o servicios tienen retos distintos. El acompañamiento se ajusta al suyo.
     </p>
     <div class="mt-10 grid gap-6 sm:grid-cols-2">
-      <a href="/soluciones/construccion/" class="card group">
+      <a href="/soluciones/construccion/" class="card card-accent group" style="--accent:#0D2640" data-reveal>
         <p class="eyebrow">8 a 50 trabajadores</p>
         <h3 class="mt-1 font-display text-2xl text-navy dark:text-white">Construcción</h3>
         <p class="mt-2 text-sm leading-relaxed text-ink-soft dark:text-white/70">
@@ -78,7 +116,7 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
           Ver solución <Icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
         </span>
       </a>
-      <a href="/soluciones/comercio-servicios/" class="card group">
+      <a href="/soluciones/comercio-servicios/" class="card card-accent group" style="--accent:#00897B" data-reveal data-reveal-delay="120">
         <p class="eyebrow">1 a 10 trabajadores</p>
         <h3 class="mt-1 font-display text-2xl text-navy dark:text-white">Comercio y servicios</h3>
         <p class="mt-2 text-sm leading-relaxed text-ink-soft dark:text-white/70">
@@ -96,25 +134,29 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
 
   <!-- Calculadora -->
   <section class="bg-mist py-20 dark:bg-white/[0.03]">
-    <div class="container-page max-w-2xl">
+    <div class="container-page max-w-2xl" data-reveal>
       <Calculator />
+      <a href="/calculadora-costo-laboral/" class="mt-6 flex items-center justify-between gap-4 rounded-xl2 border-2 border-dashed border-teal-dark/30 bg-white p-5 transition hover:border-teal-dark hover:bg-teal/5 dark:bg-navy-light dark:hover:bg-white/5">
+        <span>
+          <span class="eyebrow">Herramienta gratuita</span>
+          <span class="mt-1 block font-display text-lg text-navy dark:text-white">¿Cuánto cuesta realmente un empleado en 2026?</span>
+          <span class="mt-1 block text-sm text-ink-soft dark:text-white/70">Calculadora completa de costo laboral, con seguridad social y prestaciones.</span>
+        </span>
+        <Icon name="arrow-right" class="h-5 w-5 shrink-0 text-teal-dark dark:text-gold-light" />
+      </a>
     </div>
   </section>
 
   <!-- Proceso de trabajo -->
   <section class="container-page py-20">
-    <h2 class="font-display text-3xl text-navy dark:text-white">Cómo trabajamos</h2>
-    <ol class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <h2 class="font-display text-3xl text-navy dark:text-white" data-reveal>Cómo trabajamos</h2>
+    <ol class="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="pointer-events-none absolute left-0 right-0 top-6 hidden border-t-2 border-dashed border-navy/15 dark:border-white/15 lg:block" aria-hidden="true"></div>
       {procesoTrabajo.map((paso, idx) => (
-        <li class="relative pl-2">
-          <span class="font-display text-4xl text-gold">{paso.numero}</span>
-          <h3 class="mt-2 font-display text-lg text-navy dark:text-white">{paso.titulo}</h3>
+        <li class="relative pl-2" data-reveal data-reveal-delay={idx * 100}>
+          <span class="relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white font-display text-lg text-navy shadow-card dark:bg-navy-light dark:text-white">{paso.numero}</span>
+          <h3 class="mt-4 font-display text-lg text-navy dark:text-white">{paso.titulo}</h3>
           <p class="mt-1.5 text-sm leading-relaxed text-ink-soft dark:text-white/70">{paso.descripcion}</p>
-          {idx < procesoTrabajo.length - 1 && (
-            <span class="absolute right-[-1rem] top-3 hidden text-navy/15 dark:text-white/15 lg:block" aria-hidden="true">
-              <Icon name="arrow-right" class="h-5 w-5" />
-            </span>
-          )}
         </li>
       ))}
     </ol>
@@ -123,21 +165,21 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
   <!-- Bloque de confianza -->
   <section class="bg-navy py-20 text-white dark:bg-navy-dark">
     <div class="container-page grid gap-8 sm:grid-cols-3">
-      <div>
+      <div data-reveal>
         <Icon name="badge-check" class="h-8 w-8 text-gold" />
         <h3 class="mt-3 font-display text-lg">Profesionales responsables</h3>
         <p class="mt-1.5 text-sm leading-relaxed text-white/70">
           Cada disciplina la lidera un profesional con la formación y, donde aplica, la licencia vigente para ejercerla.
         </p>
       </div>
-      <div>
+      <div data-reveal data-reveal-delay="100">
         <Icon name="shield" class="h-8 w-8 text-gold" />
         <h3 class="mt-3 font-display text-lg">Confidencialidad</h3>
         <p class="mt-1.5 text-sm leading-relaxed text-white/70">
           La información sensible —médica, psicológica, financiera— se maneja con el nivel de reserva que corresponde a cada una.
         </p>
       </div>
-      <div>
+      <div data-reveal data-reveal-delay="200">
         <Icon name="users" class="h-8 w-8 text-gold" />
         <h3 class="mt-3 font-display text-lg">Revisión humana</h3>
         <p class="mt-1.5 text-sm leading-relaxed text-white/70">
@@ -149,75 +191,15 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
 
   <!-- FAQ -->
   <section class="container-page py-20">
-    <h2 class="font-display text-3xl text-navy dark:text-white">Preguntas frecuentes</h2>
-    <div class="mt-8 max-w-3xl">
+    <h2 class="font-display text-3xl text-navy dark:text-white" data-reveal>Preguntas frecuentes</h2>
+    <div class="mt-8 max-w-3xl" data-reveal data-reveal-delay="80">
       <FaqAccordion items={faqInicio} />
     </div>
   </section>
 
-  <!-- Equipo destacado -->
-  <section class="container-page py-20">
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p class="eyebrow">Equipo</p>
-        <h2 class="mt-1 font-display text-3xl text-navy dark:text-white">Profesionales que responden por su trabajo</h2>
-        <p class="mt-2 max-w-xl text-ink-soft dark:text-white/70">
-          Tres contadores públicos titulados, un médico laboral, un médico general y una psicóloga laboral. Cada uno con su enfoque definido y sus datos de contacto verificables.
-        </p>
-      </div>
-      <a href="/equipo/" class="btn-outline shrink-0">
-        Ver equipo completo <Icon name="arrow-right" class="h-4 w-4" />
-      </a>
-    </div>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="card flex items-center gap-4">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal/15 font-display text-base font-bold text-teal-dark">FC</div>
-        <div>
-          <p class="font-display text-navy dark:text-white">Fernando Cucalón</p>
-          <p class="text-sm text-ink-soft dark:text-white/60">Contador Público Titulado</p>
-        </div>
-      </div>
-      <div class="card flex items-center gap-4">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal/15 font-display text-base font-bold text-teal-dark">LJ</div>
-        <div>
-          <p class="font-display text-navy dark:text-white">Liliana Jurado</p>
-          <p class="text-sm text-ink-soft dark:text-white/60">Contadora Pública Titulada</p>
-        </div>
-      </div>
-      <div class="card flex items-center gap-4">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal/15 font-display text-base font-bold text-teal-dark">AB</div>
-        <div>
-          <p class="font-display text-navy dark:text-white">Anddry Burbano</p>
-          <p class="text-sm text-ink-soft dark:text-white/60">Contador Público Titulado</p>
-        </div>
-      </div>
-      <div class="card flex items-center gap-4">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold/20 font-display text-base font-bold text-navy">AJ</div>
-        <div>
-          <p class="font-display text-navy dark:text-white">Ana Deiba Jurado</p>
-          <p class="text-sm text-ink-soft dark:text-white/60">Psicóloga Laboral — SG-SST</p>
-        </div>
-      </div>
-      <div class="card flex items-center gap-4">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-teal/10 font-display text-base font-bold text-teal-dark">JC</div>
-        <div>
-          <p class="font-display text-navy dark:text-white">Julián Cucalón</p>
-          <p class="text-sm text-ink-soft dark:text-white/60">Médico Laboral</p>
-        </div>
-      </div>
-      <div class="card flex items-center gap-4">
-        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mist font-display text-base font-bold text-navy dark:text-white">JC</div>
-        <div>
-          <p class="font-display text-navy dark:text-white">John Cucalón</p>
-          <p class="text-sm text-ink-soft dark:text-white/60">Médico General</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CTA final -->
-  <section class="bg-teal-dark py-16">
-    <div class="container-page flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+  <section class="relative overflow-hidden bg-teal-dark py-16">
+    <div class="container-page relative flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h2 class="font-display text-2xl text-white sm:text-3xl">¿Empezamos con el diagnóstico inicial?</h2>
         <p class="mt-1 text-white/80">30 minutos, sin costo, sin obligación.</p>

@@ -1,0 +1,183 @@
+---
+import Icon from './Icon.astro';
+
+// Cifras oficiales 2026 (Decretos 1469 y 1470 de 2025, Ministerio del Trabajo).
+const SMMLV_2026 = 1750905;
+const AUX_TRANSPORTE_2026 = 249095;
+---
+
+<div class="card">
+  <p class="eyebrow">Calculadora de costo laboral 2026</p>
+  <h2 class="mt-1 font-display text-2xl text-navy dark:text-white sm:text-3xl">
+    ¿Cuánto le cuesta realmente un empleado en Colombia?
+  </h2>
+  <p class="mt-2 max-w-2xl text-sm text-ink-soft dark:text-white/70">
+    Con el salario mínimo 2026 (${SMMLV_2026.toLocaleString('es-CO')} + auxilio de transporte de
+    ${AUX_TRANSPORTE_2026.toLocaleString('es-CO')}) y las tarifas vigentes de seguridad social, parafiscales
+    y prestaciones sociales. Es una estimación educativa — su nómina real puede tener variables adicionales.
+  </p>
+
+  <form id="payroll-form" class="mt-6 grid gap-5 sm:grid-cols-2" data-smmlv={SMMLV_2026} data-aux={AUX_TRANSPORTE_2026}>
+    <div class="sm:col-span-2">
+      <label class="field-label" for="pc-salario">Salario mensual básico (COP)</label>
+      <input class="field-input" type="number" id="pc-salario" name="salario" min="0" step="1000" value={SMMLV_2026} inputmode="numeric" />
+    </div>
+
+    <div>
+      <label class="field-label" for="pc-riesgo">Clase de riesgo ARL</label>
+      <select class="field-input" id="pc-riesgo" name="riesgo">
+        <option value="0.522">Clase I — 0.522% (riesgo mínimo: oficina, comercio)</option>
+        <option value="1.044">Clase II — 1.044% (riesgo bajo)</option>
+        <option value="2.436">Clase III — 2.436% (riesgo medio)</option>
+        <option value="4.350">Clase IV — 4.350% (riesgo alto: construcción)</option>
+        <option value="6.960">Clase V — 6.960% (riesgo máximo)</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="field-label" for="pc-exonerado">Exoneración de aportes (Ley 1607 de 2012)</label>
+      <select class="field-input" id="pc-exonerado" name="exonerado">
+        <option value="si">Sí aplica (sociedad/persona jurídica, salario &lt; 10 SMMLV)</option>
+        <option value="no">No aplica (persona natural sin 2+ empleados, entidad sin ánimo de lucro, etc.)</option>
+      </select>
+      <p class="field-hint">La mayoría de las SAS y sociedades formales sí aplican. En caso de duda, déjelo en "Sí" y confírmelo en el diagnóstico inicial.</p>
+    </div>
+  </form>
+
+  <div id="pc-resultado" class="mt-8 grid gap-8 lg:grid-cols-[1fr_20rem]">
+    <div class="space-y-1 text-sm">
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Salario básico</span>
+        <span id="pc-out-salario" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Auxilio de transporte</span>
+        <span id="pc-out-aux" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <p class="pt-3 text-xs font-bold uppercase tracking-wide text-teal-dark dark:text-gold-light">Seguridad social (empleador)</p>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Salud (8.5%)</span>
+        <span id="pc-out-salud" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Pensión (12%)</span>
+        <span id="pc-out-pension" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">ARL</span>
+        <span id="pc-out-arl" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <p class="pt-3 text-xs font-bold uppercase tracking-wide text-teal-dark dark:text-gold-light">Parafiscales</p>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Caja de compensación (4%)</span>
+        <span id="pc-out-caja" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">SENA (2%)</span>
+        <span id="pc-out-sena" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">ICBF (3%)</span>
+        <span id="pc-out-icbf" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <p class="pt-3 text-xs font-bold uppercase tracking-wide text-teal-dark dark:text-gold-light">Prestaciones sociales</p>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Cesantías (8.33%)</span>
+        <span id="pc-out-cesantias" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Intereses a cesantías (1%)</span>
+        <span id="pc-out-intcesantias" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-navy/10 py-2 dark:border-white/10">
+        <span class="text-ink-soft dark:text-white/70">Prima de servicios (8.33%)</span>
+        <span id="pc-out-prima" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+      <div class="flex items-center justify-between py-2">
+        <span class="text-ink-soft dark:text-white/70">Vacaciones (4.17%)</span>
+        <span id="pc-out-vacaciones" class="font-semibold text-navy dark:text-white">—</span>
+      </div>
+    </div>
+
+    <div class="rounded-xl2 bg-navy p-6 text-white dark:bg-navy-light">
+      <p class="eyebrow text-gold-light">Costo mensual total</p>
+      <p id="pc-out-total" class="mt-2 font-display text-4xl">—</p>
+      <p class="mt-1 text-sm text-white/60"><span id="pc-out-multiplicador">—</span> veces el salario básico</p>
+      <div class="mt-6 border-t border-white/10 pt-5">
+        <p class="text-sm text-white/75">¿Quiere confirmar esta cifra con un profesional y dejar la nómina en orden?</p>
+        <a id="pc-cta" href="/contacto/?servicio=outsourcing-contable-tributario" class="btn-primary mt-4 w-full">
+          Solicitar diagnóstico inicial
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <p class="mt-6 flex items-start gap-2 text-xs text-ink-soft dark:text-white/50">
+    <Icon name="shield" class="mt-0.5 h-3.5 w-3.5 shrink-0" />
+    Estimación educativa basada en tarifas generales vigentes en 2026. No incluye dotación, incapacidades,
+    horas extra, ni particularidades contractuales. No sustituye una liquidación de nómina profesional.
+  </p>
+</div>
+
+<script>
+  const form = document.getElementById('payroll-form') as HTMLFormElement | null;
+  if (form) {
+    const SMMLV = Number(form.dataset.smmlv);
+    const AUX = Number(form.dataset.aux);
+    const fmt = (n: number) => n.toLocaleString('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+
+    const els = {
+      salario: document.getElementById('pc-salario') as HTMLInputElement,
+      riesgo: document.getElementById('pc-riesgo') as HTMLSelectElement,
+      exonerado: document.getElementById('pc-exonerado') as HTMLSelectElement,
+    };
+    const out = (id: string) => document.getElementById(id) as HTMLElement;
+
+    function calcular() {
+      const salario = Math.max(0, Number(els.salario.value) || 0);
+      const riesgoPct = Number(els.riesgo.value) / 100;
+      const exonerado = els.exonerado.value === 'si';
+
+      const auxilio = salario <= SMMLV * 2 ? AUX : 0;
+      const baseCesantiasPrima = salario + auxilio;
+
+      const salud = exonerado ? 0 : salario * 0.085;
+      const pension = salario * 0.12;
+      const arl = salario * riesgoPct;
+
+      const caja = salario * 0.04;
+      const sena = exonerado ? 0 : salario * 0.02;
+      const icbf = exonerado ? 0 : salario * 0.03;
+
+      const cesantias = baseCesantiasPrima * 0.0833;
+      const intCesantias = baseCesantiasPrima * 0.01;
+      const prima = baseCesantiasPrima * 0.0833;
+      const vacaciones = salario * 0.0417;
+
+      const total = salario + auxilio + salud + pension + arl + caja + sena + icbf + cesantias + intCesantias + prima + vacaciones;
+
+      out('pc-out-salario').textContent = fmt(salario);
+      out('pc-out-aux').textContent = auxilio ? fmt(auxilio) : 'No aplica';
+      out('pc-out-salud').textContent = exonerado ? 'Exonerado' : fmt(salud);
+      out('pc-out-pension').textContent = fmt(pension);
+      out('pc-out-arl').textContent = fmt(arl);
+      out('pc-out-caja').textContent = fmt(caja);
+      out('pc-out-sena').textContent = exonerado ? 'Exonerado' : fmt(sena);
+      out('pc-out-icbf').textContent = exonerado ? 'Exonerado' : fmt(icbf);
+      out('pc-out-cesantias').textContent = fmt(cesantias);
+      out('pc-out-intcesantias').textContent = fmt(intCesantias);
+      out('pc-out-prima').textContent = fmt(prima);
+      out('pc-out-vacaciones').textContent = fmt(vacaciones);
+      out('pc-out-total').textContent = fmt(total);
+      out('pc-out-multiplicador').textContent = salario > 0 ? (total / salario).toFixed(2) + '×' : '—';
+
+      const ctaEl = document.getElementById('pc-cta') as HTMLAnchorElement | null;
+      if (ctaEl) {
+        window.dataLayer = window.dataLayer || [];
+      }
+    }
+
+    form.addEventListener('input', calcular);
+    calcular();
+  }
+</script>

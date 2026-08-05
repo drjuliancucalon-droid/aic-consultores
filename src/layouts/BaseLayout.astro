@@ -74,7 +74,9 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID;
 
     <script>
       import { bindDeclarativeEvents } from '../scripts/analytics';
+      import { initScrollReveal } from '../scripts/reveal';
       bindDeclarativeEvents();
+      initScrollReveal();
     </script>
   </body>
 </html>

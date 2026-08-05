@@ -1,18 +1,19 @@
 ---
 export interface Props {
   class?: string;
+  animated?: boolean;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', animated = false } = Astro.props;
 ---
 
 <svg
-  class={className}
+  class={`${className} ${animated ? 'node-motif-animated' : ''}`}
   viewBox="0 0 560 460"
   fill="none"
   aria-hidden="true"
   focusable="false"
 >
-  <g stroke="currentColor" stroke-width="1" opacity="0.35">
+  <g stroke="currentColor" stroke-width="1" opacity="0.35" class="node-motif-lines">
     <line x1="70" y1="90" x2="230" y2="40" />
     <line x1="230" y1="40" x2="410" y2="110" />
     <line x1="70" y1="90" x2="150" y2="240" />
@@ -24,11 +25,11 @@ const { class: className = '' } = Astro.props;
     <line x1="300" y1="210" x2="470" y2="260" />
     <line x1="410" y1="110" x2="470" y2="260" />
   </g>
-  <g stroke="#E4AB37" stroke-width="1.25" opacity="0.6">
+  <g stroke="#E4AB37" stroke-width="1.25" opacity="0.6" class="node-motif-lines node-motif-lines-gold">
     <line x1="150" y1="240" x2="300" y2="210" />
     <line x1="300" y1="210" x2="410" y2="110" />
   </g>
-  <g fill="#0D2640">
+  <g fill="#0D2640" class="node-motif-dots">
     <circle cx="70" cy="90" r="4" />
     <circle cx="230" cy="40" r="3" />
     <circle cx="410" cy="110" r="5" />
@@ -38,10 +39,49 @@ const { class: className = '' } = Astro.props;
     <circle cx="380" cy="380" r="4" />
     <circle cx="470" cy="260" r="3" />
   </g>
-  <g fill="#00897B">
+  <g fill="#00897B" class="node-motif-dots">
     <circle cx="150" cy="240" r="6" />
   </g>
-  <g fill="#E4AB37">
+  <g fill="#E4AB37" class="node-motif-dots">
     <circle cx="300" cy="210" r="4" />
   </g>
 </svg>
+
+{animated && (
+  <style>
+    .node-motif-lines line {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: node-draw 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .node-motif-dots circle {
+      opacity: 0;
+      animation: node-dot-in 0.5s ease-out forwards;
+    }
+    .node-motif-lines line:nth-child(1) { animation-delay: 0.1s; }
+    .node-motif-lines line:nth-child(2) { animation-delay: 0.25s; }
+    .node-motif-lines line:nth-child(3) { animation-delay: 0.4s; }
+    .node-motif-lines line:nth-child(4) { animation-delay: 0.5s; }
+    .node-motif-lines line:nth-child(5) { animation-delay: 0.6s; }
+    .node-motif-lines line:nth-child(6) { animation-delay: 0.7s; }
+    .node-motif-lines line:nth-child(7) { animation-delay: 0.85s; }
+    .node-motif-lines line:nth-child(8) { animation-delay: 0.95s; }
+    .node-motif-lines line:nth-child(9) { animation-delay: 1.05s; }
+    .node-motif-lines line:nth-child(10) { animation-delay: 1.15s; }
+    .node-motif-dots circle { animation-delay: 1.3s; }
+    @keyframes node-draw {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes node-dot-in {
+      from { opacity: 0; transform: scale(0.3); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .node-motif-lines line, .node-motif-dots circle {
+        animation: none !important;
+        stroke-dashoffset: 0 !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+)}

@@ -6,12 +6,20 @@ export interface Props {
   resumen: string;
   icono: 'chart' | 'shield' | 'heart';
   href: string;
+  accent?: string;
+  delay?: number;
 }
-const { titulo, resumen, icono, href } = Astro.props;
+const { titulo, resumen, icono, href, accent = '#00897B', delay = 0 } = Astro.props;
 ---
 
-<a href={href} class="card group flex flex-col items-start">
-  <div class="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-white transition group-hover:bg-teal-dark">
+<a
+  href={href}
+  class="card card-accent group flex flex-col items-start"
+  style={`--accent:${accent}`}
+  data-reveal
+  data-reveal-delay={delay}
+>
+  <div class="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-white transition-transform duration-300 group-hover:scale-110" style={`background-color:${accent}`}>
     <Icon name={icono} class="h-6 w-6" />
   </div>
   <h3 class="mt-5 font-display text-xl text-navy dark:text-white">{titulo}</h3>
