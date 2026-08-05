@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Admin · Configuración" description="Configuración general del sitio">
+  <section class="container mx-auto max-w-5xl px-4 py-10">
+    <h1 class="text-3xl font-bold text-slate-900">Configuración general</h1>
+    <p class="mt-2 text-sm text-slate-600">Formulario base para centralizar toda la configuración editable del sitio.</p>
+
+    <form class="mt-8 space-y-8" method="post" action="/api/admin/settings">
+      <div class="grid gap-4 md:grid-cols-2">
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="nombre_corto" placeholder="Nombre corto" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="nombre_largo" placeholder="Nombre largo" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="eslogan" placeholder="Eslogan" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="correo_contacto" placeholder="Correo de contacto" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="whatsapp_numero" placeholder="WhatsApp" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="whatsapp_mensaje" placeholder="Mensaje predeterminado de WhatsApp" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="agenda_url" placeholder="URL de agenda" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="public_site_url" placeholder="URL pública del sitio" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="public_gtm_id" placeholder="GTM ID" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="linkedin_url" placeholder="LinkedIn" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="instagram_url" placeholder="Instagram" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="ciudad" placeholder="Ciudad" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="departamento" placeholder="Departamento" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="pais" placeholder="País" value="Colombia" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="direccion" placeholder="Dirección" />
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <button class="rounded-xl border border-slate-300 px-5 py-3 font-medium text-slate-700 hover:bg-slate-50" formaction="/api/admin/preview" type="submit">Vista previa</button>
+        <button class="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-800" formaction="/api/admin/publish" type="submit">Publicar</button>
+      </div>
+    </form>
+  </section>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Admin" description="Panel administrativo">
+  <section class="container mx-auto max-w-5xl px-4 py-10">
+    <div class="mb-8 flex items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900">Panel de administración</h1>
+        <p class="mt-2 text-sm text-slate-600">Edita configuración, contenido y datos legales. Usa Vista previa antes de Publicar.</p>
+      </div>
+      <form method="post" action="/api/admin/logout">
+        <button class="rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" type="submit">Cerrar sesión</button>
+      </form>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <a class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300" href="/admin/settings">
+        <h2 class="text-xl font-semibold text-slate-900">Configuración general</h2>
+        <p class="mt-2 text-sm text-slate-600">WhatsApp, agenda, correo, URLs públicas, GTM y redes.</p>
+      </a>
+      <a class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300" href="/admin/legal">
+        <h2 class="text-xl font-semibold text-slate-900">Legales</h2>
+        <p class="mt-2 text-sm text-slate-600">Razón social, NIT, representante legal y textos base legales.</p>
+      </a>
+      <a class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300" href="/admin/team">
+        <h2 class="text-xl font-semibold text-slate-900">Equipo</h2>
+        <p class="mt-2 text-sm text-slate-600">Nombres, cargos, matrículas, bio y orden de aparición.</p>
+      </a>
+      <a class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300" href="/admin/content">
+        <h2 class="text-xl font-semibold text-slate-900">Contenido</h2>
+        <p class="mt-2 text-sm text-slate-600">Servicios, soluciones, recursos, FAQs, pilares y proceso.</p>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
