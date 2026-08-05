@@ -1,0 +1,109 @@
+---
+import Icon from './Icon.astro';
+---
+
+<div class="card">
+  <p class="eyebrow">Calculadora orientativa</p>
+  <h3 class="mt-1 font-display text-2xl text-navy dark:text-white">¿Qué tipo de acompañamiento podría necesitar?</h3>
+  <p class="mt-2 text-sm text-ink-soft dark:text-white/70">
+    Responda estas preguntas para tener una primera idea. El resultado es orientativo y no vinculante: el alcance real siempre se define en el diagnóstico inicial.
+  </p>
+
+  <form id="calculadora-form" class="mt-6 grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class="field-label" for="calc-sector">Sector de su empresa</label>
+      <select id="calc-sector" name="sector" class="field-input">
+        <option value="construccion">Construcción</option>
+        <option value="comercio-servicios">Comercio o servicios</option>
+        <option value="independiente">Independiente / otro</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="field-label" for="calc-trabajadores">Número aproximado de trabajadores</label>
+      <select id="calc-trabajadores" name="trabajadores" class="field-input">
+        <option value="solo">Solo yo</option>
+        <option value="1-10">1 a 10</option>
+        <option value="11-50">11 a 50</option>
+        <option value="50+">Más de 50</option>
+      </select>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label class="field-label" for="calc-sgsst">Estado actual de su SG-SST</label>
+      <select id="calc-sgsst" name="sgsst" class="field-input">
+        <option value="no">No tiene SG-SST implementado</option>
+        <option value="parcial">Tiene algunos documentos, pero no está implementado del todo</option>
+        <option value="si">Está implementado y quiere mantenerlo</option>
+      </select>
+    </div>
+
+    <label class="sm:col-span-2 flex items-center gap-2.5 text-sm text-ink dark:text-white/85">
+      <input id="calc-psicosocial" name="psicosocial" type="checkbox" class="h-4 w-4 rounded border-navy/30 text-teal-dark focus:ring-teal-dark" />
+      Me interesa evaluar el riesgo psicosocial de mi equipo
+    </label>
+
+    <button type="submit" class="btn-primary sm:col-span-2 justify-self-start">Ver resultado orientativo</button>
+  </form>
+
+  <div id="calc-resultado" class="mt-6 hidden rounded-xl2 border-2 border-gold bg-mist p-5 dark:bg-white/5" role="region" aria-live="polite">
+    <p class="eyebrow">Resultado orientativo</p>
+    <p id="calc-resultado-nivel" class="mt-1 font-display text-xl text-navy dark:text-white"></p>
+    <p id="calc-resultado-detalle" class="mt-2 text-sm text-ink-soft dark:text-white/70"></p>
+    <p class="mt-3 text-xs font-medium text-ink-soft dark:text-white/50">
+      Este resultado es orientativo y no vinculante. Solicite una cotización formal para un alcance definitivo.
+    </p>
+    <a id="calc-cta" href="/contacto/" class="btn-primary mt-4 inline-flex">
+      Solicitar cotización formal <Icon name="arrow-right" class="h-4 w-4" />
+    </a>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('calculadora-form') as HTMLFormElement | null;
+  const resultado = document.getElementById('calc-resultado');
+  const nivelEl = document.getElementById('calc-resultado-nivel');
+  const detalleEl = document.getElementById('calc-resultado-detalle');
+  const ctaEl = document.getElementById('calc-cta') as HTMLAnchorElement | null;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const sector = String(data.get('sector') || '');
+    const trabajadores = String(data.get('trabajadores') || '');
+    const sgsst = String(data.get('sgsst') || '');
+    const psicosocial = data.get('psicosocial') === 'on';
+
+    let puntos = 0;
+    if (trabajadores === '11-50') puntos += 2;
+    if (trabajadores === '50+') puntos += 3;
+    if (trabajadores === '1-10') puntos += 1;
+    if (sector === 'construccion') puntos += 2;
+    if (sgsst === 'no') puntos += 2;
+    if (sgsst === 'parcial') puntos += 1;
+    if (psicosocial) puntos += 1;
+
+    let nivel: string;
+    let detalle: string;
+    let servicioSugerido = 'outsourcing-contable-tributario';
+
+    if (puntos <= 1) {
+      nivel = 'Acompañamiento básico';
+      detalle = 'Un punto de partida enfocado en orden contable y tributario, con SG-SST dimensionado a una operación pequeña.';
+    } else if (puntos <= 4) {
+      nivel = 'Acompañamiento intermedio';
+      detalle = 'Probablemente necesite contabilidad continua y un SG-SST implementado activamente, no solo documentado.';
+      servicioSugerido = 'sgsst';
+    } else {
+      nivel = 'Acompañamiento integral';
+      detalle = 'Su empresa podría beneficiarse de coordinar contabilidad, SG-SST y riesgo psicosocial bajo un mismo acompañamiento.';
+      servicioSugerido = 'sgsst';
+    }
+
+    if (nivelEl) nivelEl.textContent = nivel;
+    if (detalleEl) detalleEl.textContent = detalle;
+    if (ctaEl) ctaEl.href = `/contacto/?servicio=${servicioSugerido}&sector=${sector}&trabajadores=${trabajadores}`;
+    resultado?.classList.remove('hidden');
+    resultado?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+</script>

@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NodeMotif from '../components/NodeMotif.astro';
+import NeedSelector from '../components/NeedSelector.astro';
+import PillarCard from '../components/PillarCard.astro';
+import Calculator from '../components/Calculator.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import Icon from '../components/Icon.astro';
+import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/site';
+---
+
+<BaseLayout
+  title={`${site.nombreCorto} — ${site.ciudad}, ${site.departamento}`}
+  description={site.eslogan}
+  path="/"
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-mist dark:bg-navy-dark">
+    <NodeMotif class="pointer-events-none absolute -right-24 -top-10 h-[420px] w-[520px] text-navy/70 dark:text-white/20 sm:right-0" />
+    <div class="container-page relative py-20 sm:py-28">
+      <div class="max-w-2xl">
+        <p class="eyebrow animate-fadeUp">Consultoría interdisciplinaria en {site.ciudad}, {site.departamento}</p>
+        <h1 class="mt-4 animate-fadeUp font-display text-4xl leading-tight text-navy dark:text-white sm:text-5xl" style="animation-delay:80ms">
+          Orden financiero, cumplimiento y bienestar laboral para su empresa.
+        </h1>
+        <p class="mt-5 animate-fadeUp text-lg leading-relaxed text-ink-soft dark:text-white/75" style="animation-delay:160ms">
+          {site.eslogan}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/contacto/" class="btn-primary">Agendar diagnóstico inicial</a>
+          <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-analytics-event="clic_whatsapp" data-analytics-origin="hero">
+            <Icon name="whatsapp" class="h-4 w-4" /> Hablar por WhatsApp
+          </a>
+        </div>
+        <p class="mt-4 text-xs text-ink-soft dark:text-white/50">Diagnóstico de 30 minutos, sin costo y sin obligación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selector de necesidad -->
+  <section class="container-page py-14">
+    <h2 class="font-display text-2xl text-navy dark:text-white">¿Por dónde empezamos?</h2>
+    <p class="mt-1 text-ink-soft dark:text-white/70">Elija la opción más cercana a lo que necesita hoy.</p>
+    <div class="mt-6">
+      <NeedSelector />
+    </div>
+  </section>
+
+  <!-- Tres pilares -->
+  <section class="bg-navy py-20 dark:bg-navy-dark">
+    <div class="container-page">
+      <p class="eyebrow text-gold-light">Un solo acompañamiento, tres disciplinas coordinadas</p>
+      <h2 class="mt-2 max-w-2xl font-display text-3xl text-white">
+        Ningún profesional trabaja aislado del resto del equipo.
+      </h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        {pilares.map((p) => (
+          <PillarCard titulo={p.titulo} resumen={p.resumen} icono={p.icono as 'chart' | 'shield' | 'heart'} href={p.href} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectores: construcción y comercio/servicios -->
+  <section class="container-page py-20">
+    <h2 class="font-display text-3xl text-navy dark:text-white">Hecho para su sector</h2>
+    <p class="mt-2 max-w-2xl text-ink-soft dark:text-white/70">
+      Construcción y comercio o servicios tienen retos distintos. El acompañamiento se ajusta al suyo.
+    </p>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      <a href="/soluciones/construccion/" class="card group">
+        <p class="eyebrow">8 a 50 trabajadores</p>
+        <h3 class="mt-1 font-display text-2xl text-navy dark:text-white">Construcción</h3>
+        <p class="mt-2 text-sm leading-relaxed text-ink-soft dark:text-white/70">
+          SG-SST ajustado a frentes de obra cambiantes y contabilidad con control por proyecto.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-dark dark:text-gold-light">
+          Ver solución <Icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+        </span>
+      </a>
+      <a href="/soluciones/comercio-servicios/" class="card group">
+        <p class="eyebrow">1 a 10 trabajadores</p>
+        <h3 class="mt-1 font-display text-2xl text-navy dark:text-white">Comercio y servicios</h3>
+        <p class="mt-2 text-sm leading-relaxed text-ink-soft dark:text-white/70">
+          Obligaciones dimensionadas al tamaño real de su negocio, sin procesos de empresa grande.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-dark dark:text-gold-light">
+          Ver solución <Icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+        </span>
+      </a>
+    </div>
+    <p class="mt-6 text-sm text-ink-soft dark:text-white/60">
+      ¿Es independiente, institución educativa privada, IPS o consultorio? <a href="/soluciones/independientes/" class="font-semibold text-teal-dark underline decoration-gold decoration-2 underline-offset-2 dark:text-gold-light">Vea la solución para su caso</a>.
+    </p>
+  </section>
+
+  <!-- Calculadora -->
+  <section class="bg-mist py-20 dark:bg-white/[0.03]">
+    <div class="container-page max-w-2xl">
+      <Calculator />
+    </div>
+  </section>
+
+  <!-- Proceso de trabajo -->
+  <section class="container-page py-20">
+    <h2 class="font-display text-3xl text-navy dark:text-white">Cómo trabajamos</h2>
+    <ol class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {procesoTrabajo.map((paso, idx) => (
+        <li class="relative pl-2">
+          <span class="font-display text-4xl text-gold">{paso.numero}</span>
+          <h3 class="mt-2 font-display text-lg text-navy dark:text-white">{paso.titulo}</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-soft dark:text-white/70">{paso.descripcion}</p>
+          {idx < procesoTrabajo.length - 1 && (
+            <span class="absolute right-[-1rem] top-3 hidden text-navy/15 dark:text-white/15 lg:block" aria-hidden="true">
+              <Icon name="arrow-right" class="h-5 w-5" />
+            </span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Bloque de confianza -->
+  <section class="bg-navy py-20 text-white dark:bg-navy-dark">
+    <div class="container-page grid gap-8 sm:grid-cols-3">
+      <div>
+        <Icon name="badge-check" class="h-8 w-8 text-gold" />
+        <h3 class="mt-3 font-display text-lg">Profesionales responsables</h3>
+        <p class="mt-1.5 text-sm leading-relaxed text-white/70">
+          Cada disciplina la lidera un profesional con la formación y, donde aplica, la licencia vigente para ejercerla.
+        </p>
+      </div>
+      <div>
+        <Icon name="shield" class="h-8 w-8 text-gold" />
+        <h3 class="mt-3 font-display text-lg">Confidencialidad</h3>
+        <p class="mt-1.5 text-sm leading-relaxed text-white/70">
+          La información sensible —médica, psicológica, financiera— se maneja con el nivel de reserva que corresponde a cada una.
+        </p>
+      </div>
+      <div>
+        <Icon name="users" class="h-8 w-8 text-gold" />
+        <h3 class="mt-3 font-display text-lg">Revisión humana</h3>
+        <p class="mt-1.5 text-sm leading-relaxed text-white/70">
+          La automatización administrativa que usamos acelera tareas repetitivas; las decisiones y entregas las revisa siempre una persona.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container-page py-20">
+    <h2 class="font-display text-3xl text-navy dark:text-white">Preguntas frecuentes</h2>
+    <div class="mt-8 max-w-3xl">
+      <FaqAccordion items={faqInicio} />
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="bg-teal-dark py-16">
+    <div class="container-page flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 class="font-display text-2xl text-white sm:text-3xl">¿Empezamos con el diagnóstico inicial?</h2>
+        <p class="mt-1 text-white/80">30 minutos, sin costo, sin obligación.</p>
+      </div>
+      <a href="/contacto/" class="btn bg-white text-navy hover:bg-gold hover:text-navy">
+        Agendar ahora <Icon name="arrow-right" class="h-4 w-4" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

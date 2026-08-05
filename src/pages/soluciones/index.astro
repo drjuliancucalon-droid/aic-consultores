@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+
+const solucionesRaw = await getCollection('soluciones');
+const soluciones = solucionesRaw.sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<BaseLayout
+  title="Soluciones por sector"
+  description="Acompañamiento contable, de SG-SST y de riesgo psicosocial adaptado a construcción, comercio/servicios e independientes en Popayán, Cauca."
+  path="/soluciones/"
+>
+  <section class="container-page py-16 sm:py-20">
+    <p class="eyebrow">Soluciones</p>
+    <h1 class="mt-2 max-w-2xl font-display text-4xl text-navy dark:text-white">Cada sector tiene retos distintos</h1>
+    <p class="mt-3 max-w-2xl text-ink-soft dark:text-white/70">
+      Elija el segmento más parecido a su empresa para ver problemas típicos, servicios sugeridos y entregables.
+    </p>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {soluciones.map((s) => (
+        <a href={`/soluciones/${s.slug}/`} class="card group flex flex-col">
+          <p class="eyebrow">{s.data.segmento}</p>
+          <h2 class="mt-1 font-display text-2xl text-navy dark:text-white">{s.data.titulo}</h2>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-soft dark:text-white/70">{s.data.resumen}</p>
+          <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-dark dark:text-gold-light">
+            Ver solución <Icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

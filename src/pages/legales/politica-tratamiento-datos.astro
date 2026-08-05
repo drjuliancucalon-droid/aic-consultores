@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+---
+
+<BaseLayout
+  title="Política de tratamiento de datos personales"
+  description="Política de tratamiento de datos personales de AIC Consultores, conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013."
+  path="/legales/politica-tratamiento-datos/"
+>
+  <article class="container-page py-16">
+    <div class="prose prose-slate max-w-3xl dark:prose-invert prose-headings:font-display prose-headings:text-navy dark:prose-headings:text-white prose-a:text-teal-dark">
+      <p class="eyebrow not-prose">Legal</p>
+      <h1>Política de tratamiento de datos personales</h1>
+      <p class="text-sm text-ink-soft">Última actualización: agosto de 2026.</p>
+
+      <div class="not-prose my-6 rounded-xl2 border-2 border-gold bg-mist p-5 text-sm text-ink dark:bg-white/5 dark:text-white/85">
+        Esta política es una plantilla general redactada con base en la Ley 1581 de 2012 y el Decreto 1377 de 2013 de Colombia. No reemplaza la revisión de un abogado especializado en protección de datos antes de su publicación definitiva, y debe completarse con los datos reales de la razón social responsable.
+      </div>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <p>
+        [PLACEHOLDER — Razón social o nombres de los profesionales responsables] ("{site.nombreCorto}"), con domicilio en {site.ciudad}, {site.departamento}, Colombia, actúa como responsable del tratamiento de los datos personales recolectados a través de este sitio web. Durante la fase piloto, {site.nombreCorto} opera como un equipo de profesionales independientes que trabaja de forma coordinada; esta política se actualizará con la razón social y el NIT correspondientes en caso de formalizarse una sociedad.
+      </p>
+      <p>Correo de contacto para temas de protección de datos: <a href={`mailto:${site.correoContacto}`}>{site.correoContacto}</a>.</p>
+
+      <h2>2. Datos que se recolectan</h2>
+      <p>A través de los formularios públicos de este sitio se recolectan únicamente datos de identificación y contacto básicos, tales como:</p>
+      <ul>
+        <li>Nombre completo</li>
+        <li>Nombre de la empresa, ciudad y sector económico</li>
+        <li>Correo electrónico y número de teléfono</li>
+        <li>Número aproximado de trabajadores</li>
+        <li>Servicio de interés y mensaje opcional que usted decida escribir</li>
+      </ul>
+      <p>
+        <strong>Los formularios públicos de este sitio no están diseñados para recolectar datos sensibles</strong> (historias clínicas, diagnósticos, resultados de exámenes médicos, resultados de baterías de riesgo psicosocial, información de afiliación sindical, entre otros). Se solicita expresamente a los usuarios no incluir este tipo de información en los formularios del sitio. Cuando el tratamiento de un servicio requiera datos sensibles (por ejemplo, en el marco de una evaluación médica ocupacional), esa información se recolecta por canales distintos, específicos y con su propio consentimiento informado y confidencialidad reforzada.
+      </p>
+
+      <h2>3. Finalidades del tratamiento</h2>
+      <ul>
+        <li>Responder solicitudes de contacto y agendar el diagnóstico inicial.</li>
+        <li>Preparar y enviar propuestas o cotizaciones según el alcance solicitado.</li>
+        <li>Gestionar la relación contractual con clientes, cuando llegue a existir.</li>
+        <li>Enviar contenido informativo (guías, checklists) cuando el usuario lo solicite expresamente a través de la descarga de recursos.</li>
+        <li>Cumplir obligaciones legales y contables aplicables a la prestación de los servicios.</li>
+      </ul>
+
+      <h2>4. Derechos del titular de los datos</h2>
+      <p>Conforme a la Ley 1581 de 2012, usted tiene derecho a:</p>
+      <ul>
+        <li>Conocer, actualizar y rectificar sus datos personales.</li>
+        <li>Solicitar prueba de la autorización otorgada.</li>
+        <li>Ser informado sobre el uso que se ha dado a sus datos.</li>
+        <li>Presentar quejas ante la Superintendencia de Industria y Comercio (SIC) por infracciones a la normativa de protección de datos.</li>
+        <li>Revocar la autorización y/o solicitar la supresión de sus datos, cuando no exista un deber legal o contractual que impida hacerlo.</li>
+        <li>Acceder de forma gratuita a sus datos personales.</li>
+      </ul>
+
+      <h2>5. Cómo ejercer sus derechos</h2>
+      <p>
+        Puede ejercer cualquiera de estos derechos escribiendo a <a href={`mailto:${site.correoContacto}`}>{site.correoContacto}</a>, indicando su nombre completo, el derecho que desea ejercer y una descripción clara de su solicitud. Se dará respuesta dentro de los términos establecidos por la ley colombiana aplicable.
+      </p>
+
+      <h2>6. Vigencia</h2>
+      <p>
+        Los datos personales se conservarán durante el tiempo necesario para cumplir las finalidades descritas y los plazos de conservación que exija la normativa contable, tributaria o laboral aplicable, según corresponda.
+      </p>
+
+      <h2>7. Cambios a esta política</h2>
+      <p>
+        Esta política puede actualizarse para reflejar cambios normativos o en la operación de {site.nombreCorto}. La fecha de última actualización se indica al inicio de este documento.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

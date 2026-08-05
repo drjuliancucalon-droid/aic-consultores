@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+
+export interface Props {
+  titulo: string;
+  resumen: string;
+  icono: 'chart' | 'shield' | 'heart';
+  href: string;
+}
+const { titulo, resumen, icono, href } = Astro.props;
+---
+
+<a href={href} class="card group flex flex-col items-start">
+  <div class="flex h-12 w-12 items-center justify-center rounded-full bg-navy text-white transition group-hover:bg-teal-dark">
+    <Icon name={icono} class="h-6 w-6" />
+  </div>
+  <h3 class="mt-5 font-display text-xl text-navy dark:text-white">{titulo}</h3>
+  <p class="mt-2 text-sm leading-relaxed text-ink-soft dark:text-white/70">{resumen}</p>
+  <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-dark dark:text-gold-light">
+    Ver cómo <Icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+  </span>
+</a>

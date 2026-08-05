@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+---
+
+<BaseLayout
+  title="Aviso de privacidad"
+  description="Aviso de privacidad de AIC Consultores: resumen de cómo se tratan los datos personales recolectados en este sitio."
+  path="/legales/aviso-privacidad/"
+>
+  <article class="container-page py-16">
+    <div class="prose prose-slate max-w-3xl dark:prose-invert prose-headings:font-display prose-headings:text-navy dark:prose-headings:text-white prose-a:text-teal-dark">
+      <p class="eyebrow not-prose">Legal</p>
+      <h1>Aviso de privacidad</h1>
+      <p class="text-sm text-ink-soft">Última actualización: agosto de 2026.</p>
+
+      <div class="not-prose my-6 rounded-xl2 border-2 border-gold bg-mist p-5 text-sm text-ink dark:bg-white/5 dark:text-white/85">
+        Este es un resumen orientativo. El documento completo es la <a href="/legales/politica-tratamiento-datos/">Política de tratamiento de datos personales</a>, que prevalece sobre este aviso en caso de cualquier diferencia.
+      </div>
+
+      <p>
+        {site.nombreCorto} recolecta los datos personales que usted proporciona voluntariamente a través de los formularios de este sitio (contacto y descarga de recursos), con el fin de responder su solicitud, agendar el diagnóstico inicial y, si usted lo autoriza, enviarle contenido informativo.
+      </p>
+      <p>
+        Sus datos no se venden ni se comparten con terceros para fines distintos a la prestación del servicio solicitado, salvo obligación legal. Usted puede conocer, actualizar, rectificar o solicitar la eliminación de sus datos en cualquier momento escribiendo a <a href={`mailto:${site.correoContacto}`}>{site.correoContacto}</a>.
+      </p>
+      <p>
+        Le pedimos no enviar por estos formularios historias clínicas, diagnósticos, resultados de exámenes médicos ni resultados de evaluaciones psicosociales. Esa información, cuando el servicio contratado la requiera, se gestiona por canales específicos y confidenciales indicados directamente por el profesional a cargo.
+      </p>
+      <p>
+        Para conocer el detalle completo de las finalidades, los derechos del titular y el procedimiento para ejercerlos, consulte la <a href="/legales/politica-tratamiento-datos/">Política de tratamiento de datos personales</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+// Placeholder vectorial. El motivo de "nodos conectados" representa la
+// coordinación entre las tres disciplinas (contable, SST, psicosocial) bajo
+// un mismo acompañamiento. Reemplazar por el logo definitivo del cliente
+// manteniendo, si se desea, el mismo espacio de nombre "AIC Consultores".
+export interface Props {
+  variant?: 'full' | 'mark';
+  class?: string;
+}
+const { variant = 'full', class: className = '' } = Astro.props;
+---
+
+{variant === 'mark' ? (
+  <svg viewBox="0 0 40 36" class={className} role="img" aria-label="AIC Consultores">
+    <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+      <line x1="20" y1="8" x2="9" y2="28" />
+      <line x1="20" y1="8" x2="31" y2="28" />
+      <line x1="9" y1="28" x2="31" y2="28" stroke="#E4AB37" />
+    </g>
+    <circle cx="20" cy="8" r="4.5" fill="#0D2640" />
+    <circle cx="9" cy="28" r="4.5" fill="#00897B" />
+    <circle cx="31" cy="28" r="4.5" fill="#0D2640" />
+    <circle cx="20" cy="8" r="1.5" fill="#F2F7F9" />
+    <circle cx="9" cy="28" r="1.5" fill="#F2F7F9" />
+    <circle cx="31" cy="28" r="1.5" fill="#F2F7F9" />
+  </svg>
+) : (
+  <svg viewBox="0 0 168 36" class={className} role="img" aria-label="AIC Consultores">
+    <g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+      <line x1="20" y1="8" x2="9" y2="28" />
+      <line x1="20" y1="8" x2="31" y2="28" />
+      <line x1="9" y1="28" x2="31" y2="28" stroke="#E4AB37" />
+    </g>
+    <circle cx="20" cy="8" r="4.5" fill="#0D2640" />
+    <circle cx="9" cy="28" r="4.5" fill="#00897B" />
+    <circle cx="31" cy="28" r="4.5" fill="#0D2640" />
+    <circle cx="20" cy="8" r="1.5" fill="#F2F7F9" />
+    <circle cx="9" cy="28" r="1.5" fill="#F2F7F9" />
+    <circle cx="31" cy="28" r="1.5" fill="#F2F7F9" />
+    <text x="46" y="17" font-family="'Source Serif 4', Georgia, serif" font-size="15" font-weight="600" fill="currentColor">AIC</text>
+    <text x="46" y="31" font-family="Manrope, ui-sans-serif, sans-serif" font-size="9.5" letter-spacing="0.04em" fill="currentColor" opacity="0.75">Consultores</text>
+  </svg>
+)}

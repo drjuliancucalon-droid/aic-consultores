@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+
+export interface Props {
+  slug: string;
+  titulo: string;
+  resumen: string;
+  responsable: string;
+  modalidad: string;
+}
+const { slug, titulo, resumen, responsable, modalidad } = Astro.props;
+---
+
+<article class="card flex h-full flex-col">
+  <h3 class="font-display text-xl text-navy dark:text-white">{titulo}</h3>
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-soft dark:text-white/70">{resumen}</p>
+
+  <dl class="mt-4 space-y-1.5 border-t border-navy/10 pt-4 text-xs text-ink-soft dark:border-white/10 dark:text-white/60">
+    <div class="flex gap-1.5"><dt class="font-semibold text-navy dark:text-white/80">Responsable:</dt><dd>{responsable}</dd></div>
+    <div class="flex gap-1.5"><dt class="font-semibold text-navy dark:text-white/80">Modalidad:</dt><dd>{modalidad}</dd></div>
+  </dl>
+
+  <a href={`/servicios/${slug}/`} class="btn-secondary mt-5 self-start !px-5 !py-2 text-xs">
+    Ver detalle <Icon name="arrow-right" class="h-3.5 w-3.5" />
+  </a>
+</article>

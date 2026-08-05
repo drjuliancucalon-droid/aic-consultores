@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    @apply bg-white text-ink font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-navy;
+  }
+
+  /* Foco visible consistente para navegación por teclado (WCAG 2.4.7) */
+  :focus-visible {
+    outline: 3px solid theme('colors.gold.DEFAULT');
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: theme('colors.gold.light');
+    color: theme('colors.navy.DEFAULT');
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100]
+      focus:rounded-lg focus:bg-navy focus:px-4 focus:py-2 focus:text-white focus:shadow-card;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
+      text-sm font-semibold tracking-wide transition
+      focus-visible:outline-offset-4 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-teal-dark text-white hover:bg-navy;
+  }
+  .btn-secondary {
+    @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
+  }
+  .btn-whatsapp {
+    @apply btn bg-[#25D366] text-white hover:bg-[#1DA851];
+  }
+  .btn-ghost {
+    @apply btn text-navy underline underline-offset-4 decoration-gold decoration-2 hover:text-teal-dark;
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-teal-dark;
+  }
+
+  .card {
+    @apply rounded-xl2 border border-navy/10 bg-white p-6 shadow-card transition hover:-translate-y-0.5 hover:shadow-cardHover;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-navy;
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-navy/20 bg-white px-4 py-2.5 text-ink placeholder:text-ink-soft/60
+      focus:border-teal-dark focus:outline-none focus-visible:outline-none;
+  }
+  .field-hint {
+    @apply mt-1 text-xs text-ink-soft;
+  }
+  .field-error {
+    @apply mt-1 text-xs font-medium text-red-700;
+  }
+}

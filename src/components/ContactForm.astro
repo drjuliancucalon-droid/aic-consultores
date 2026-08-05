@@ -1,0 +1,180 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+
+const serviciosRaw = await getCollection('servicios');
+const servicios = serviciosRaw
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .map((s) => ({ slug: s.slug, titulo: s.data.titulo }));
+---
+
+<form id="contacto-form" novalidate class="grid gap-5 sm:grid-cols-2" data-endpoint={import.meta.env.PUBLIC_FORM_ENDPOINT || '/api/contacto'}>
+  <div>
+    <label class="field-label" for="f-nombre">Nombre completo *</label>
+    <input class="field-input" type="text" id="f-nombre" name="nombre" required autocomplete="name" />
+  </div>
+  <div>
+    <label class="field-label" for="f-empresa">Empresa</label>
+    <input class="field-input" type="text" id="f-empresa" name="empresa" autocomplete="organization" />
+  </div>
+
+  <div>
+    <label class="field-label" for="f-ciudad">Ciudad *</label>
+    <input class="field-input" type="text" id="f-ciudad" name="ciudad" required autocomplete="address-level2" />
+  </div>
+  <div>
+    <label class="field-label" for="f-sector">Sector *</label>
+    <select class="field-input" id="f-sector" name="sector" required>
+      <option value="">Seleccione…</option>
+      <option value="construccion">Construcción</option>
+      <option value="comercio-servicios">Comercio o servicios</option>
+      <option value="independiente">Independiente / otro</option>
+      <option value="educativo">Institución educativa privada</option>
+      <option value="salud">IPS / consultorio de salud</option>
+    </select>
+  </div>
+
+  <div>
+    <label class="field-label" for="f-trabajadores">Número aproximado de trabajadores *</label>
+    <select class="field-input" id="f-trabajadores" name="trabajadores" required>
+      <option value="">Seleccione…</option>
+      <option value="solo">Solo yo</option>
+      <option value="1-10">1 a 10</option>
+      <option value="11-50">11 a 50</option>
+      <option value="50+">Más de 50</option>
+    </select>
+  </div>
+  <div>
+    <label class="field-label" for="f-servicio">Servicio de interés *</label>
+    <select class="field-input" id="f-servicio" name="servicio" required>
+      <option value="">Seleccione…</option>
+      {servicios.map((s) => <option value={s.slug}>{s.titulo}</option>)}
+      <option value="no-seguro">No estoy seguro / varios</option>
+    </select>
+    <p id="f-servicio-sugerencia" class="field-hint hidden"></p>
+  </div>
+
+  <div>
+    <label class="field-label" for="f-correo">Correo electrónico *</label>
+    <input class="field-input" type="email" id="f-correo" name="correo" required autocomplete="email" />
+  </div>
+  <div>
+    <label class="field-label" for="f-telefono">Teléfono / WhatsApp *</label>
+    <input class="field-input" type="tel" id="f-telefono" name="telefono" required autocomplete="tel" />
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class="field-label" for="f-mensaje">Mensaje (opcional)</label>
+    <textarea class="field-input" id="f-mensaje" name="mensaje" rows="4"></textarea>
+    <p class="field-hint flex items-start gap-1.5">
+      <Icon name="shield" class="mt-0.5 h-3.5 w-3.5 shrink-0" />
+      No incluya aquí historias clínicas, diagnósticos, resultados de exámenes ni otra información sensible. Ese tipo de información se gestiona únicamente por los canales confidenciales que el profesional a cargo le indique directamente.
+    </p>
+  </div>
+
+  <div class="sm:col-span-2 flex items-start gap-2.5">
+    <input class="mt-0.5 h-4 w-4 rounded border-navy/30 text-teal-dark focus:ring-teal-dark" type="checkbox" id="f-consentimiento" name="consentimiento" required />
+    <label for="f-consentimiento" class="text-sm text-ink dark:text-white/85">
+      Autorizo el tratamiento de mis datos personales conforme a la
+      <a href="/legales/politica-tratamiento-datos/" class="underline decoration-gold decoration-2 underline-offset-2 hover:text-teal-dark">Política de tratamiento de datos</a>. *
+    </label>
+  </div>
+
+  <div id="form-mensaje" class="sm:col-span-2 hidden rounded-lg p-4 text-sm" role="status" aria-live="polite"></div>
+
+  <div class="sm:col-span-2 flex flex-wrap items-center gap-4">
+    <button type="submit" id="f-submit" class="btn-primary">
+      Enviar solicitud
+    </button>
+    <span class="text-xs text-ink-soft dark:text-white/50">* Campos obligatorios</span>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('contacto-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('f-submit') as HTMLButtonElement | null;
+  const mensajeBox = document.getElementById('form-mensaje');
+  const sectorSelect = document.getElementById('f-sector') as HTMLSelectElement | null;
+  const trabajadoresSelect = document.getElementById('f-trabajadores') as HTMLSelectElement | null;
+  const servicioSelect = document.getElementById('f-servicio') as HTMLSelectElement | null;
+  const sugerenciaEl = document.getElementById('f-servicio-sugerencia');
+
+  let servicioTocadoManualmente = false;
+  servicioSelect?.addEventListener('change', () => { servicioTocadoManualmente = true; });
+
+  // Lógica condicional: sugiere un servicio según sector + tamaño, sin
+  // bloquear la elección manual del usuario.
+  function sugerirServicio() {
+    if (!sectorSelect || !trabajadoresSelect || !servicioSelect) return;
+    const sector = sectorSelect.value;
+    const trabajadores = trabajadoresSelect.value;
+    let sugerido = '';
+    if (sector === 'construccion') sugerido = 'sgsst';
+    else if (sector === 'comercio-servicios' && (trabajadores === '1-10' || trabajadores === 'solo')) sugerido = 'outsourcing-contable-tributario';
+    else if (sector === 'independiente') sugerido = 'outsourcing-contable-tributario';
+    else if (trabajadores === '11-50' || trabajadores === '50+') sugerido = 'sgsst';
+
+    const opcionExiste = sugerido && Array.from(servicioSelect.options).some((o) => o.value === sugerido);
+    if (opcionExiste && sugerenciaEl) {
+      const label = servicioSelect.querySelector(`option[value="${sugerido}"]`)?.textContent?.trim();
+      sugerenciaEl.textContent = `Sugerencia según sus respuestas: ${label}. Puede cambiarla si prefiere otra.`;
+      sugerenciaEl.classList.remove('hidden');
+      if (!servicioTocadoManualmente) servicioSelect.value = sugerido;
+    }
+  }
+  sectorSelect?.addEventListener('change', sugerirServicio);
+  trabajadoresSelect?.addEventListener('change', sugerirServicio);
+
+  // Prellenar desde parámetros de URL (llegando desde el selector de
+  // necesidad o la calculadora orientativa).
+  const params = new URLSearchParams(window.location.search);
+  const servicioParam = params.get('servicio');
+  const sectorParam = params.get('sector');
+  const trabajadoresParam = params.get('trabajadores');
+  if (servicioParam && servicioSelect && Array.from(servicioSelect.options).some((o) => o.value === servicioParam)) {
+    servicioSelect.value = servicioParam;
+    servicioTocadoManualmente = true;
+  }
+  if (sectorParam && sectorSelect && Array.from(sectorSelect.options).some((o) => o.value === sectorParam)) {
+    sectorSelect.value = sectorParam;
+  }
+  if (trabajadoresParam && trabajadoresSelect && Array.from(trabajadoresSelect.options).some((o) => o.value === trabajadoresParam)) {
+    trabajadoresSelect.value = trabajadoresParam;
+  }
+
+  function mostrarMensaje(texto: string, tipo: 'exito' | 'error') {
+    if (!mensajeBox) return;
+    mensajeBox.textContent = texto;
+    mensajeBox.classList.remove('hidden', 'bg-teal/10', 'text-teal-dark', 'bg-red-50', 'text-red-700');
+    mensajeBox.classList.add(...(tipo === 'exito' ? ['bg-teal/10', 'text-teal-dark'] : ['bg-red-50', 'text-red-700']));
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const endpoint = form.dataset.endpoint || '/api/contacto';
+    const payload = Object.fromEntries(new FormData(form).entries());
+    payload.tipo = 'contacto';
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Enviando…'; }
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Respuesta no exitosa');
+      mostrarMensaje('Recibimos su solicitud. Le responderemos a la mayor brevedad por correo o WhatsApp.', 'exito');
+      form.reset();
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'envio_formulario', servicio: payload.servicio, sector: payload.sector });
+    } catch (err) {
+      mostrarMensaje('No pudimos enviar el formulario. Intente de nuevo o escríbanos directamente por WhatsApp.', 'error');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Enviar solicitud'; }
+    }
+  });
+</script>

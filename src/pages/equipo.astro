@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { equipo } from '../data/equipo';
+---
+
+<BaseLayout
+  title="Equipo"
+  description="Profesionales responsables detrás de AIC Consultores: contabilidad, medicina laboral y SG-SST, psicología organizacional y tecnología."
+  path="/equipo/"
+>
+  <section class="bg-mist py-14 dark:bg-white/[0.03]">
+    <div class="container-page">
+      <p class="eyebrow">Equipo</p>
+      <h1 class="mt-2 max-w-2xl font-display text-4xl text-navy dark:text-white">Profesionales, no una plantilla genérica</h1>
+      <p class="mt-3 max-w-2xl text-ink-soft dark:text-white/70">
+        Cada disciplina la lidera un profesional identificado, con su enfoque y, donde aplica, su matrícula o licencia verificable. No se atribuyen credenciales ni experiencia que no puedan verificarse.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page py-16">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {equipo.map((m) => <TeamCard miembro={m} />)}
+    </div>
+    <p class="mt-8 max-w-2xl text-sm text-ink-soft dark:text-white/60">
+      Durante la fase piloto, el equipo opera como profesionales independientes que trabajan de forma coordinada bajo un mismo acompañamiento. Los perfiles marcados "nombre por definir" corresponden a roles que el equipo está formalizando.
+    </p>
+  </section>
+</BaseLayout>

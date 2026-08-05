@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+---
+
+<BaseLayout
+  title="Términos y condiciones"
+  description="Términos y condiciones de uso del sitio web de AIC Consultores."
+  path="/legales/terminos-condiciones/"
+>
+  <article class="container-page py-16">
+    <div class="prose prose-slate max-w-3xl dark:prose-invert prose-headings:font-display prose-headings:text-navy dark:prose-headings:text-white prose-a:text-teal-dark">
+      <p class="eyebrow not-prose">Legal</p>
+      <h1>Términos y condiciones</h1>
+      <p class="text-sm text-ink-soft">Última actualización: agosto de 2026.</p>
+
+      <div class="not-prose my-6 rounded-xl2 border-2 border-gold bg-mist p-5 text-sm text-ink dark:bg-white/5 dark:text-white/85">
+        Esta es una plantilla general. Se recomienda la revisión de un abogado antes de la publicación definitiva del sitio.
+      </div>
+
+      <h2>1. Objeto</h2>
+      <p>
+        Este sitio web (el "Sitio") pertenece a {site.nombreCorto}, un equipo de profesionales independientes que presta servicios de contabilidad y gestión tributaria, seguridad y salud en el trabajo (SG-SST), evaluación de riesgo psicosocial y servicios especializados afines, en {site.ciudad}, {site.departamento}, Colombia. El uso del Sitio implica la aceptación de estos términos y condiciones.
+      </p>
+
+      <h2>2. Carácter orientativo de la información</h2>
+      <p>
+        Todo el contenido publicado en este Sitio (incluyendo textos de servicios, soluciones por sector, checklists, guías y respuestas del FAQ) tiene carácter general, informativo y orientativo. <strong>No constituye, ni sustituye, un concepto profesional individual</strong> —contable, médico, psicológico o jurídico— sobre el caso particular de su empresa o situación. Las decisiones que usted tome con base en este contenido son de su exclusiva responsabilidad.
+      </p>
+      <p>
+        {site.nombreCorto} no garantiza resultados tributarios, financieros, médicos, jurídicos o psicológicos específicos. El alcance, el cronograma y los entregables de cada servicio se definen por escrito en una propuesta formal, previa al inicio de cualquier acompañamiento.
+      </p>
+
+      <h2>3. Servicios médicos y ocupacionales</h2>
+      <p>
+        Los servicios médicos y ocupacionales ofrecidos a través de este Sitio se prestan dentro del alcance profesional habilitado y el marco regulatorio aplicable en Colombia, en particular la Resolución 1843 de 2025, la Resolución 0312 de 2019 y el Decreto 1072 de 2015. Este Sitio no ofrece diagnóstico médico en línea ni reemplaza la atención médica presencial cuando esta es necesaria.
+      </p>
+
+      <h2>4. Uso permitido del Sitio</h2>
+      <p>
+        Usted se compromete a utilizar el Sitio de forma lícita, sin infringir derechos de terceros ni la normativa vigente, y sin introducir contenido malicioso a través de los formularios disponibles.
+      </p>
+
+      <h2>5. Propiedad intelectual</h2>
+      <p>
+        Los textos, el diseño, el logotipo y demás elementos originales de este Sitio son propiedad de {site.nombreCorto} o se usan bajo la licencia correspondiente. Su reproducción total o parcial sin autorización no está permitida, salvo cuando la ley lo permita expresamente (por ejemplo, para uso personal no comercial).
+      </p>
+
+      <h2>6. Enlaces a terceros</h2>
+      <p>
+        Este Sitio puede enlazar a plataformas de terceros (WhatsApp, agenda en línea, entre otras) sobre las cuales {site.nombreCorto} no tiene control y cuyas propias políticas de privacidad y términos de uso son responsabilidad de dichos terceros.
+      </p>
+
+      <h2>7. Limitación de responsabilidad</h2>
+      <p>
+        {site.nombreCorto} no será responsable por daños derivados del uso de la información orientativa de este Sitio sin la debida validación profesional del caso particular, ni por interrupciones del Sitio ajenas a su control razonable.
+      </p>
+
+      <h2>8. Modificaciones</h2>
+      <p>
+        Estos términos pueden actualizarse en cualquier momento. La versión vigente es la publicada en esta página, con su fecha de última actualización.
+      </p>
+
+      <h2>9. Ley aplicable</h2>
+      <p>
+        Estos términos se rigen por las leyes de la República de Colombia. Cualquier controversia derivada del uso del Sitio se someterá a los jueces competentes en Colombia, sin perjuicio de otros mecanismos de resolución de conflictos que las partes puedan acordar.
+      </p>
+
+      <h2>10. Contacto</h2>
+      <p>
+        Para preguntas sobre estos términos, escriba a <a href={`mailto:${site.correoContacto}`}>{site.correoContacto}</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

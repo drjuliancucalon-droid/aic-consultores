@@ -1,0 +1,7 @@
+# Actualice el dominio de abajo cuando conecte el dominio definitivo
+# (debe coincidir con PUBLIC_SITE_URL).
+User-agent: *
+Allow: /
+Disallow: /404/
+
+Sitemap: https://www.aicconsultores.co/sitemap-index.xml

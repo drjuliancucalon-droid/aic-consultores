@@ -1,0 +1,76 @@
+---
+import Icon from './Icon.astro';
+
+export interface Props { recursoSlug: string; recursoTitulo: string }
+const { recursoSlug, recursoTitulo } = Astro.props;
+---
+
+<div class="not-prose rounded-xl2 border-2 border-gold bg-mist p-6 dark:bg-white/5 sm:p-8" id="descarga-recurso">
+  <p class="eyebrow">Descargar en PDF</p>
+  <h2 class="mt-1 font-display text-xl text-navy dark:text-white">Deje sus datos para descargar esta guía</h2>
+  <p class="mt-2 text-sm text-ink-soft dark:text-white/70">
+    Con su nombre y correo generamos la descarga y, si lo autoriza, le avisamos cuando publiquemos guías nuevas. Puede leer la guía completa arriba sin dejar ningún dato.
+  </p>
+
+  <form id="descarga-form" class="mt-5 grid gap-4 sm:grid-cols-2" data-endpoint={import.meta.env.PUBLIC_FORM_ENDPOINT || '/api/contacto'} data-recurso={recursoSlug}>
+    <div>
+      <label class="field-label" for="d-nombre">Nombre *</label>
+      <input class="field-input" type="text" id="d-nombre" name="nombre" required autocomplete="name" />
+    </div>
+    <div>
+      <label class="field-label" for="d-correo">Correo electrónico *</label>
+      <input class="field-input" type="email" id="d-correo" name="correo" required autocomplete="email" />
+    </div>
+    <label class="sm:col-span-2 flex items-start gap-2.5 text-sm text-ink dark:text-white/85">
+      <input class="mt-0.5 h-4 w-4 rounded border-navy/30 text-teal-dark focus:ring-teal-dark" type="checkbox" id="d-consentimiento" name="consentimiento" required />
+      <span>Autorizo el tratamiento de mis datos conforme a la <a href="/legales/politica-tratamiento-datos/" class="underline decoration-gold decoration-2 underline-offset-2 hover:text-teal-dark">Política de tratamiento de datos</a>. *</span>
+    </label>
+    <div id="descarga-mensaje" class="sm:col-span-2 hidden rounded-lg p-3 text-sm" role="status" aria-live="polite"></div>
+    <button type="submit" id="descarga-submit" class="btn-primary sm:col-span-2 justify-self-start">
+      <Icon name="download" class="h-4 w-4" /> Descargar “{recursoTitulo}” en PDF
+    </button>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('descarga-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('descarga-submit') as HTMLButtonElement | null;
+  const mensajeBox = document.getElementById('descarga-mensaje');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const endpoint = form.dataset.endpoint || '/api/contacto';
+    const recurso = form.dataset.recurso || '';
+    const payload = { ...Object.fromEntries(new FormData(form).entries()), tipo: 'descarga-recurso', recurso };
+
+    if (submitBtn) { submitBtn.disabled = true; }
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Respuesta no exitosa');
+      if (mensajeBox) {
+        mensajeBox.textContent = 'Gracias. A continuación se abrirá el diálogo de impresión: elija "Guardar como PDF".';
+        mensajeBox.classList.remove('hidden');
+        mensajeBox.classList.add('bg-teal/10', 'text-teal-dark');
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'descarga_recurso', recurso });
+      setTimeout(() => window.print(), 600);
+    } catch (err) {
+      if (mensajeBox) {
+        mensajeBox.textContent = 'No pudimos procesar la solicitud. Intente de nuevo en un momento.';
+        mensajeBox.classList.remove('hidden');
+        mensajeBox.classList.add('bg-red-50', 'text-red-700');
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+</script>

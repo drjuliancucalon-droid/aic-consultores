@@ -1,0 +1,19 @@
+---
+export interface Props {
+  texto?: string;
+}
+const {
+  texto = '¿Quiere revisar cómo aplica esto a su empresa en particular?',
+} = Astro.props;
+---
+
+<div class="not-prose my-10 rounded-xl2 border border-teal/20 bg-mist p-6 sm:p-8">
+  <p class="font-display text-lg text-navy">{texto}</p>
+  <p class="mt-1 text-sm text-ink-soft">
+    Esta guía es orientativa y general. Un diagnóstico inicial de 30 minutos nos permite ver su caso puntual.
+  </p>
+  <div class="mt-4 flex flex-wrap gap-3">
+    <a href="/contacto/" class="btn-primary">Agendar diagnóstico inicial</a>
+    <a href="/servicios/" class="btn-secondary">Ver servicios</a>
+  </div>
+</div>

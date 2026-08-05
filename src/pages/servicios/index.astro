@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+
+const todos = (await getCollection('servicios')).sort((a, b) => a.data.orden - b.data.orden);
+
+const categorias = [
+  { id: 'contable-tributario', titulo: 'Outsourcing contable y tributario' },
+  { id: 'sgsst', titulo: 'Seguridad y Salud en el Trabajo' },
+  { id: 'psicosocial', titulo: 'Riesgo psicosocial' },
+  { id: 'especializado', titulo: 'Servicios especializados' },
+] as const;
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Outsourcing contable y tributario, SG-SST, riesgo psicosocial y servicios especializados. Cotización según alcance."
+  path="/servicios/"
+>
+  <section class="bg-mist py-14 dark:bg-white/[0.03]">
+    <div class="container-page">
+      <p class="eyebrow">Servicios</p>
+      <h1 class="mt-2 max-w-2xl font-display text-4xl text-navy dark:text-white">Qué hacemos, y qué no</h1>
+      <p class="mt-3 max-w-2xl text-ink-soft dark:text-white/70">
+        Cada servicio tiene un alcance definido y un responsable profesional. El valor exacto siempre se cotiza según el alcance particular de su empresa.
+      </p>
+    </div>
+  </section>
+
+  {categorias.map((cat) => {
+    const items = todos.filter((s) => s.data.categoria === cat.id);
+    if (items.length === 0) return null;
+    return (
+      <section id={cat.id} class="container-page scroll-mt-24 py-14">
+        <h2 class="font-display text-2xl text-navy dark:text-white">{cat.titulo}</h2>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((s) => (
+            <ServiceCard
+              slug={s.slug}
+              titulo={s.data.titulo}
+              resumen={s.data.resumen}
+              responsable={s.data.responsable}
+              modalidad={s.data.modalidad}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="container-page pb-20">
+    <div class="rounded-xl2 border border-navy/10 bg-white p-6 text-sm text-ink-soft dark:border-white/10 dark:bg-navy-light dark:text-white/70">
+      Los servicios médicos y ocupacionales de este sitio se prestan dentro del alcance profesional habilitado y el marco regulatorio aplicable. Ningún servicio de este listado constituye una promesa de resultado tributario, médico, psicológico o jurídico.
+    </div>
+  </section>
+</BaseLayout>
