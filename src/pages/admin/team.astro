@@ -1,13 +1,50 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const env = (Astro.locals as any).runtime?.env;
+let miembros: any[] = [];
+if (env?.DB) {
+  const { listTeamMembers } = await import('../../lib/admin/team');
+  miembros = await listTeamMembers(env);
+}
+const message = Astro.url.searchParams.get('message');
 ---
 
 <BaseLayout title="Admin · Equipo" description="Gestión del equipo">
-  <section class="container mx-auto max-w-5xl px-4 py-10">
+  <section class="container mx-auto max-w-4xl px-4 py-10">
     <h1 class="text-3xl font-bold text-slate-900">Equipo</h1>
-    <p class="mt-2 text-sm text-slate-600">Administra nombres, cargos, matrículas y biografías profesionales.</p>
-    <div class="mt-8 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-sm text-slate-600">
-      Módulo base listo para conectarse a `team_members` en D1.
+    <p class="mt-2 text-sm text-slate-600">Agrega o edita miembros del equipo. Usa el mismo slug para actualizar un registro existente.</p>
+    {message && <p class="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{message}</p>}
+
+    <form class="mt-8 space-y-4 rounded-2xl border border-slate-200 p-6" method="post" action="/api/admin/team">
+      <div class="grid gap-4 md:grid-cols-2">
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="slug" placeholder="slug-unico" required />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="nombre" placeholder="Nombre completo" required />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="cargo" placeholder="Cargo / rol" required />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="matricula" placeholder="Matrícula profesional" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="resumen" placeholder="Resumen breve" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="foto_url" placeholder="URL de foto" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="orden" placeholder="Orden (número)" type="number" value="0" />
+      </div>
+      <textarea class="h-32 w-full rounded-xl border border-slate-300 px-4 py-3" name="bio_md" placeholder="Biografía extendida (Markdown)"></textarea>
+      <label class="flex items-center gap-2 text-sm text-slate-700">
+        <input name="publicado" type="checkbox" value="1" checked /> Publicado
+      </label>
+      <div class="flex flex-wrap gap-3">
+        <button class="rounded-xl border border-slate-300 px-5 py-3 font-medium text-slate-700 hover:bg-slate-50" formaction="/api/admin/team/preview" type="submit">Vista previa</button>
+        <button class="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-800" formaction="/api/admin/team/publish" type="submit">Publicar</button>
+      </div>
+    </form>
+
+    <div class="mt-10 space-y-3">
+      <h2 class="text-xl font-semibold text-slate-900">Miembros actuales</h2>
+      {miembros.length === 0 && <p class="text-sm text-slate-500">Aún no hay miembros cargados en D1.</p>}
+      {miembros.map((m: any) => (
+        <div class="rounded-xl border border-slate-200 p-4">
+          <p class="font-semibold text-slate-900">{m.nombre} — {m.cargo}</p>
+          <p class="text-sm text-slate-600">Matrícula: {m.matricula || 'sin registrar'} · slug: {m.slug}</p>
+        </div>
+      ))}
     </div>
   </section>
 </BaseLayout>

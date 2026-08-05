@@ -1,13 +1,48 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const env = (Astro.locals as any).runtime?.env;
+let legal: Record<string, any> = {};
+if (env?.DB) {
+  const { getLegalContent } = await import('../../lib/admin/legal');
+  legal = (await getLegalContent(env)) ?? {};
+}
+const message = Astro.url.searchParams.get('message');
 ---
 
 <BaseLayout title="Admin · Legales" description="Datos legales del sitio">
-  <section class="container mx-auto max-w-5xl px-4 py-10">
+  <section class="container mx-auto max-w-4xl px-4 py-10">
     <h1 class="text-3xl font-bold text-slate-900">Legales</h1>
-    <p class="mt-2 text-sm text-slate-600">Completa razón social, NIT y textos legales antes de publicar.</p>
-    <div class="mt-8 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-sm text-slate-600">
-      Módulo inicial creado. La siguiente iteración debe conectar lectura/escritura completa de textos Markdown en D1.
-    </div>
+    <p class="mt-2 text-sm text-slate-600">Razón social, NIT y textos base de las páginas legales.</p>
+    {message && <p class="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{message}</p>}
+
+    <form class="mt-8 space-y-6" method="post" action="/api/admin/legal">
+      <div class="grid gap-4 md:grid-cols-2">
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="razon_social" placeholder="Razón social" value={legal.razon_social || ''} />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="nit" placeholder="NIT" value={legal.nit || ''} />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="representante_legal" placeholder="Representante legal" value={legal.representante_legal || ''} />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="correo_habeas_data" placeholder="Correo de habéas data" value={legal.correo_habeas_data || ''} />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="telefono_legal" placeholder="Teléfono legal" value={legal.telefono_legal || ''} />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="direccion_legal" placeholder="Dirección legal" value={legal.direccion_legal || ''} />
+      </div>
+
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700">Aviso de privacidad (Markdown)</label>
+        <textarea class="h-40 w-full rounded-xl border border-slate-300 px-4 py-3" name="aviso_privacidad_md">{legal.aviso_privacidad_md || ''}</textarea>
+      </div>
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700">Política de tratamiento de datos (Markdown)</label>
+        <textarea class="h-40 w-full rounded-xl border border-slate-300 px-4 py-3" name="politica_datos_md">{legal.politica_datos_md || ''}</textarea>
+      </div>
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700">Términos y condiciones (Markdown)</label>
+        <textarea class="h-40 w-full rounded-xl border border-slate-300 px-4 py-3" name="terminos_md">{legal.terminos_md || ''}</textarea>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <button class="rounded-xl border border-slate-300 px-5 py-3 font-medium text-slate-700 hover:bg-slate-50" formaction="/api/admin/legal/preview" type="submit">Vista previa</button>
+        <button class="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-800" formaction="/api/admin/legal/publish" type="submit">Publicar</button>
+      </div>
+    </form>
   </section>
 </BaseLayout>

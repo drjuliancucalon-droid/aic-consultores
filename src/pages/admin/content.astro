@@ -1,13 +1,73 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const env = (Astro.locals as any).runtime?.env;
+let servicios: any[] = [];
+let soluciones: any[] = [];
+let recursos: any[] = [];
+let faqs: any[] = [];
+if (env?.DB) {
+  const { listContentEntries, listFaqItems } = await import('../../lib/admin/content');
+  servicios = await listContentEntries(env, 'servicios');
+  soluciones = await listContentEntries(env, 'soluciones');
+  recursos = await listContentEntries(env, 'recursos');
+  faqs = await listFaqItems(env, 'inicio');
+}
+const message = Astro.url.searchParams.get('message');
 ---
 
 <BaseLayout title="Admin · Contenido" description="Gestión de contenido">
   <section class="container mx-auto max-w-5xl px-4 py-10">
     <h1 class="text-3xl font-bold text-slate-900">Contenido</h1>
-    <p class="mt-2 text-sm text-slate-600">Administra servicios, soluciones, recursos, FAQs y secciones del home.</p>
-    <div class="mt-8 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-sm text-slate-600">
-      Módulo base listo para conectar `content_entries`, `faq_items` y `homepage_sections`.
+    <p class="mt-2 text-sm text-slate-600">Servicios, soluciones, recursos y preguntas frecuentes del inicio.</p>
+    {message && <p class="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-800">{message}</p>}
+
+    <form class="mt-8 space-y-4 rounded-2xl border border-slate-200 p-6" method="post" action="/api/admin/content">
+      <div class="grid gap-4 md:grid-cols-2">
+        <select class="rounded-xl border border-slate-300 px-4 py-3" name="collection" required>
+          <option value="servicios">Servicios</option>
+          <option value="soluciones">Soluciones</option>
+          <option value="recursos">Recursos</option>
+        </select>
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="slug" placeholder="slug-unico" required />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="title" placeholder="Título" required />
+        <input class="rounded-xl border border-slate-300 px-4 py-3 md:col-span-2" name="description" placeholder="Descripción corta" />
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="orden" placeholder="Orden" type="number" value="0" />
+      </div>
+      <textarea class="h-40 w-full rounded-xl border border-slate-300 px-4 py-3" name="body_md" placeholder="Contenido completo (Markdown)"></textarea>
+      <div class="flex flex-wrap gap-3">
+        <button class="rounded-xl border border-slate-300 px-5 py-3 font-medium text-slate-700 hover:bg-slate-50" formaction="/api/admin/content/preview" type="submit">Vista previa</button>
+        <button class="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-800" formaction="/api/admin/content/publish" type="submit">Publicar</button>
+      </div>
+    </form>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <div>
+        <h2 class="font-semibold text-slate-900">Servicios ({servicios.length})</h2>
+        {servicios.map((s: any) => <p class="text-sm text-slate-600">{s.title}</p>)}
+      </div>
+      <div>
+        <h2 class="font-semibold text-slate-900">Soluciones ({soluciones.length})</h2>
+        {soluciones.map((s: any) => <p class="text-sm text-slate-600">{s.title}</p>)}
+      </div>
+      <div>
+        <h2 class="font-semibold text-slate-900">Recursos ({recursos.length})</h2>
+        {recursos.map((s: any) => <p class="text-sm text-slate-600">{s.title}</p>)}
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="text-xl font-semibold text-slate-900">FAQs de inicio</h2>
+      <form class="mt-4 space-y-3 rounded-2xl border border-slate-200 p-6" method="post" action="/api/admin/faq">
+        <input class="w-full rounded-xl border border-slate-300 px-4 py-3" name="pregunta" placeholder="Pregunta" required />
+        <textarea class="h-24 w-full rounded-xl border border-slate-300 px-4 py-3" name="respuesta" placeholder="Respuesta" required></textarea>
+        <input class="rounded-xl border border-slate-300 px-4 py-3" name="orden" placeholder="Orden" type="number" value="0" />
+        <div class="flex flex-wrap gap-3">
+          <button class="rounded-xl border border-slate-300 px-5 py-3 font-medium text-slate-700 hover:bg-slate-50" formaction="/api/admin/faq/preview" type="submit">Vista previa</button>
+          <button class="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-800" formaction="/api/admin/faq/publish" type="submit">Publicar</button>
+        </div>
+      </form>
+      {faqs.map((f: any) => <p class="mt-3 text-sm text-slate-600">{f.pregunta}</p>)}
     </div>
   </section>
 </BaseLayout>
