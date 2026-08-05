@@ -1,10 +1,34 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TeamCard from '../components/TeamCard.astro';
-import { equipo } from '../data/equipo';
+import { equipo as equipoEstatico } from '../data/equipo';
 
-const contadores = equipo.filter((m) => m.area === 'contable');
-const otros = equipo.filter((m) => m.area !== 'contable');
+const env = (Astro.locals as any).runtime?.env;
+let equipo = equipoEstatico;
+
+if (env?.DB) {
+  const { listTeamMembers } = await import('../lib/admin/team');
+  const registros = await listTeamMembers(env);
+  if (registros.length > 0) {
+    equipo = registros
+      .filter((m: any) => m.publicado)
+      .map((m: any) => ({
+        id: m.slug,
+        nombre: m.nombre,
+        rol: m.cargo,
+        area: m.area || 'sgsst',
+        matricula: m.matricula,
+        enfoque: m.resumen,
+        contacto: {},
+        foto: m.foto_url || '/images/equipo/placeholder.png',
+      })) as any;
+  }
+}
+
+const contadores = equipo.filter((m: any) => m.area === 'contable');
+const otros = equipo.filter((m: any) => m.area !== 'contable');
 ---
 
 <BaseLayout
@@ -25,12 +49,12 @@ const otros = equipo.filter((m) => m.area !== 'contable');
   <section class="container-page py-16">
     <h2 class="font-display text-2xl text-navy dark:text-white" data-reveal>Nuestros contadores</h2>
     <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {contadores.map((m, i) => <TeamCard miembro={m} accent={['#00897B', '#0D2640', '#2F8132'][i % 3]} delay={i * 80} size="large" />)}
+      {contadores.map((m: any, i: number) => <TeamCard miembro={m} accent={['#00897B', '#0D2640', '#2F8132'][i % 3]} delay={i * 80} size="large" />)}
     </div>
 
     <h2 class="mt-16 font-display text-2xl text-navy dark:text-white" data-reveal>Salud ocupacional y bienestar laboral</h2>
     <div class="mx-auto mt-6 grid max-w-4xl gap-5 sm:grid-cols-3">
-      {otros.map((m, i) => <TeamCard miembro={m} accent={['#2F8132', '#0D2640', '#00897B'][i % 3]} delay={i * 80} size="small" />)}
+      {otros.map((m: any, i: number) => <TeamCard miembro={m} accent={['#2F8132', '#0D2640', '#00897B'][i % 3]} delay={i * 80} size="small" />)}
     </div>
   </section>
 </BaseLayout>
