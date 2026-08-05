@@ -8,9 +8,9 @@ problemasTipicos:
   - "SG-SST diseñado para cumplir en el papel, sin ajustarse a los riesgos reales de cada frente de obra"
   - "Costeo por obra poco claro, que dificulta saber si un proyecto fue realmente rentable"
 serviciosSugeridos:
-  - "Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST)"
-  - "Outsourcing contable y tributario"
-  - "Evaluación y gestión del riesgo psicosocial"
+  - "Gestión de Nómina, Seguridad Social y SG-SST"
+  - "Contabilidad General y Financiera"
+  - "Gestión Tributaria e Impuestos"
 entregables:
   - "SG-SST ajustado a los riesgos propios de cada frente de obra activo"
   - "Calendario de exámenes médicos ocupacionales por trabajador y por obra"

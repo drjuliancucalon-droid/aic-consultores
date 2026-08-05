@@ -21,7 +21,7 @@ const soluciones = solucionesRaw.sort((a, b) => a.data.orden - b.data.orden);
 
     <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {soluciones.map((s, i) => (
-        <a href={`/soluciones/${s.slug}/`} class="card card-accent group flex flex-col" style={`--accent:${['#0D2640', '#00897B', '#C4901F'][i % 3]}`} data-reveal data-reveal-delay={i * 100}>
+        <a href={`/soluciones/${s.slug}/`} class="card card-accent group flex flex-col" style={`--accent:${['#0D2640', '#00897B', '#2F8132'][i % 3]}`} data-reveal data-reveal-delay={i * 100}>
           <p class="eyebrow">{s.data.segmento}</p>
           <h2 class="mt-1 font-display text-2xl text-navy dark:text-white">{s.data.titulo}</h2>
           <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-soft dark:text-white/70">{s.data.resumen}</p>

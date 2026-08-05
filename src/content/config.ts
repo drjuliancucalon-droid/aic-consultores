@@ -4,7 +4,7 @@ const servicios = defineCollection({
   type: 'content',
   schema: z.object({
     titulo: z.string(),
-    categoria: z.enum(['contable-tributario', 'sgsst', 'psicosocial', 'especializado']),
+    categoria: z.enum(['contabilidad-financiera', 'revisoria-auditoria', 'tributario', 'financiera-consultoria', 'nomina-sgsst', 'tramites-adicionales']),
     resumen: z.string().max(220),
     queResuelve: z.string(),
     incluye: z.array(z.string()),
@@ -13,6 +13,7 @@ const servicios = defineCollection({
     modalidad: z.string(),
     orden: z.number().default(99),
     destacadoEnInicio: z.boolean().default(false),
+    fuentesLegales: z.array(z.string()).optional(),
   }),
 });
 

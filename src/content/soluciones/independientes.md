@@ -8,8 +8,8 @@ problemasTipicos:
   - "Instituciones educativas o de salud pequeñas sin claridad sobre sus obligaciones de SG-SST como empleadores"
   - "Falta de tiempo para llevar cuentas propias mientras se atiende la actividad principal"
 serviciosSugeridos:
-  - "Outsourcing contable y tributario"
-  - "Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST)"
+  - "Contabilidad General y Financiera"
+  - "Gestión Tributaria e Impuestos"
 entregables:
   - "Declaración y pago correcto de aportes a seguridad social como independiente"
   - "Cumplimiento tributario mensual y anual"

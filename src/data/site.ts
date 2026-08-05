@@ -2,8 +2,8 @@
 // Los valores marcados "PLACEHOLDER" deben reemplazarse antes de publicar.
 
 export const site = {
-  nombreCorto: 'AIC Consultores',
-  nombreLargo: 'AIC — Asesoría Interdisciplinaria de Consultoría',
+  nombreCorto: 'Asesoría Integral',
+  nombreLargo: 'Asesoría Integral Contadores y Consultores',
   eslogan:
     'Ayudamos a pequeñas empresas a ordenar sus finanzas, cumplir sus obligaciones y proteger a su equipo mediante un acompañamiento profesional coordinado.',
   ciudad: 'Popayán',
@@ -12,8 +12,8 @@ export const site = {
   // PLACEHOLDER — dirección física si atienden público en un punto fijo. Si la operación
   // es 100% extramural/remota, se puede dejar solo ciudad y departamento.
   direccion: '',
-  correoContacto: import.meta.env.PUBLIC_CONTACT_EMAIL || 'contacto@aicconsultores.co',
-  whatsappNumero: import.meta.env.PUBLIC_WHATSAPP_NUMBER || '573000000000',
+  correoContacto: import.meta.env.PUBLIC_CONTACT_EMAIL || 'dr.juliancucalon@gmail.com',
+  whatsappNumero: import.meta.env.PUBLIC_WHATSAPP_NUMBER || '573182213979',
   whatsappMensaje:
     import.meta.env.PUBLIC_WHATSAPP_MENSAJE || 'Hola, quiero agendar un diagnóstico inicial gratuito.',
   agendaUrl: import.meta.env.PUBLIC_AGENDA_URL || 'https://cal.com/aic-consultores/diagnostico-inicial',
@@ -55,7 +55,7 @@ export const pilares = [
     resumen:
       'Contabilidad, impuestos y nómina al día, con información clara para tomar decisiones.',
     icono: 'chart',
-    href: '/servicios/#contable-tributario',
+    href: '/servicios/#contabilidad-financiera',
   },
   {
     id: 'sst-en-marcha',
@@ -63,7 +63,7 @@ export const pilares = [
     resumen:
       'Sistema de Gestión de Seguridad y Salud en el Trabajo implementado y sostenible, no solo un documento archivado.',
     icono: 'shield',
-    href: '/servicios/#sgsst',
+    href: '/servicios/#nomina-sgsst',
   },
   {
     id: 'entorno-saludable',
@@ -71,7 +71,7 @@ export const pilares = [
     resumen:
       'Identificación y gestión del riesgo psicosocial, dentro del marco normativo vigente.',
     icono: 'heart',
-    href: '/servicios/#psicosocial',
+    href: '/servicios/#nomina-sgsst',
   },
 ] as const;
 

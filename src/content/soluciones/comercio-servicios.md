@@ -8,9 +8,9 @@ problemasTipicos:
   - "Rotación de personal y desgaste del equipo por sobrecarga, sin un espacio formal para identificarlo"
   - "Trámites tributarios que se resuelven mes a mes bajo presión, en vez de con anticipación"
 serviciosSugeridos:
-  - "Outsourcing contable y tributario"
-  - "Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST)"
-  - "Evaluación y gestión del riesgo psicosocial"
+  - "Contabilidad General y Financiera"
+  - "Gestión Tributaria e Impuestos"
+  - "Gestión de Nómina, Seguridad Social y SG-SST"
 entregables:
   - "Contabilidad y nómina mensual con calendario de obligaciones"
   - "SG-SST dimensionado a los estándares mínimos que corresponden a una empresa de este tamaño"

@@ -75,7 +75,20 @@ const { Content } = await entry.render();
       <Content />
     </div>
 
-    <div class="mt-12 flex flex-wrap items-center gap-4 rounded-xl2 bg-navy p-6 dark:bg-navy-light sm:p-8">
+    {data.fuentesLegales && data.fuentesLegales.length > 0 && (
+      <div class="mt-10 rounded-xl2 border border-navy/10 bg-mist p-6 dark:border-white/10 dark:bg-white/5">
+        <h2 class="flex items-center gap-2 font-display text-lg text-navy dark:text-white">
+          <Icon name="badge-check" class="h-5 w-5 text-teal-dark dark:text-gold-light" /> Marco legal vigente
+        </h2>
+        <ul class="mt-3 space-y-2">
+          {data.fuentesLegales.map((fuente) => (
+            <li class="text-sm leading-relaxed text-ink-soft dark:text-white/70">{fuente}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="mt-10 flex flex-wrap items-center gap-4 rounded-xl2 bg-navy p-6 dark:bg-navy-light sm:p-8">
       <p class="flex-1 font-display text-lg text-white">¿Aplica a su empresa? Cotizamos según el alcance real.</p>
       <a href={`/contacto/?servicio=${entry.slug}`} class="btn bg-gold text-navy hover:bg-white">Solicitar cotización</a>
     </div>

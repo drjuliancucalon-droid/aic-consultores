@@ -85,7 +85,7 @@ import Icon from './Icon.astro';
 
     let nivel: string;
     let detalle: string;
-    let servicioSugerido = 'outsourcing-contable-tributario';
+    let servicioSugerido = 'contabilidad-financiera';
 
     if (puntos <= 1) {
       nivel = 'Acompañamiento básico';
@@ -93,11 +93,11 @@ import Icon from './Icon.astro';
     } else if (puntos <= 4) {
       nivel = 'Acompañamiento intermedio';
       detalle = 'Probablemente necesite contabilidad continua y un SG-SST implementado activamente, no solo documentado.';
-      servicioSugerido = 'sgsst';
+      servicioSugerido = 'nomina-sgsst';
     } else {
       nivel = 'Acompañamiento integral';
       detalle = 'Su empresa podría beneficiarse de coordinar contabilidad, SG-SST y riesgo psicosocial bajo un mismo acompañamiento.';
-      servicioSugerido = 'sgsst';
+      servicioSugerido = 'nomina-sgsst';
     }
 
     if (nivelEl) nivelEl.textContent = nivel;

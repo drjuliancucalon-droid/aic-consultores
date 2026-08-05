@@ -18,10 +18,13 @@ export default {
           dark: '#00695C',    // variante AA-segura — usar en botones sólidos con texto blanco
           light: '#26A699',
         },
+        // Acento verde tomado del lado derecho del degradado real del logo
+        // (antes era dorado). Se conserva el nombre de clase "gold" para no
+        // romper las ~40 referencias ya escritas en el sitio.
         gold: {
-          DEFAULT: '#E4AB37', // usar solo como acento (bordes, íconos, fondos con texto navy). Nunca como texto sobre blanco.
-          dark: '#C4901F',
-          light: '#EDC169',
+          DEFAULT: '#4CAF50', // acento — bordes, íconos, fondos con texto navy. Nunca como texto sobre blanco.
+          dark: '#2F8132',
+          light: '#8BD98D',
         },
         mist: '#F2F7F9',
         ink: {

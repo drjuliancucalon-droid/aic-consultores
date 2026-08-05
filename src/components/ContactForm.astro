@@ -109,10 +109,10 @@ const servicios = serviciosRaw
     const sector = sectorSelect.value;
     const trabajadores = trabajadoresSelect.value;
     let sugerido = '';
-    if (sector === 'construccion') sugerido = 'sgsst';
-    else if (sector === 'comercio-servicios' && (trabajadores === '1-10' || trabajadores === 'solo')) sugerido = 'outsourcing-contable-tributario';
-    else if (sector === 'independiente') sugerido = 'outsourcing-contable-tributario';
-    else if (trabajadores === '11-50' || trabajadores === '50+') sugerido = 'sgsst';
+    if (sector === 'construccion') sugerido = 'nomina-sgsst';
+    else if (sector === 'comercio-servicios' && (trabajadores === '1-10' || trabajadores === 'solo')) sugerido = 'contabilidad-financiera';
+    else if (sector === 'independiente') sugerido = 'contabilidad-financiera';
+    else if (trabajadores === '11-50' || trabajadores === '50+') sugerido = 'nomina-sgsst';
 
     const opcionExiste = sugerido && Array.from(servicioSelect.options).some((o) => o.value === sugerido);
     if (opcionExiste && sugerenciaEl) {
