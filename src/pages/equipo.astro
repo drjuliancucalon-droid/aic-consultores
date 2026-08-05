@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TeamCard from '../components/TeamCard.astro';
 import { equipo } from '../data/equipo';
+
+const contadores = equipo.filter((m) => m.area === 'contable');
+const otros = equipo.filter((m) => m.area !== 'contable');
 ---
 
 <BaseLayout
@@ -20,8 +23,14 @@ import { equipo } from '../data/equipo';
   </section>
 
   <section class="container-page py-16">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {equipo.map((m, i) => <TeamCard miembro={m} accent={['#00897B', '#0D2640', '#2F8132'][i % 3]} delay={i * 80} />)}
+    <h2 class="font-display text-2xl text-navy dark:text-white" data-reveal>Nuestros contadores</h2>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {contadores.map((m, i) => <TeamCard miembro={m} accent={['#00897B', '#0D2640', '#2F8132'][i % 3]} delay={i * 80} size="large" />)}
+    </div>
+
+    <h2 class="mt-16 font-display text-2xl text-navy dark:text-white" data-reveal>Salud ocupacional y bienestar laboral</h2>
+    <div class="mx-auto mt-6 grid max-w-4xl gap-5 sm:grid-cols-3">
+      {otros.map((m, i) => <TeamCard miembro={m} accent={['#2F8132', '#0D2640', '#00897B'][i % 3]} delay={i * 80} size="small" />)}
     </div>
   </section>
 </BaseLayout>

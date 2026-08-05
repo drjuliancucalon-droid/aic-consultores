@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedNetworkBg from '../components/AnimatedNetworkBg.astro';
 import NodeMotif from '../components/NodeMotif.astro';
 import NeedSelector from '../components/NeedSelector.astro';
 import PillarCard from '../components/PillarCard.astro';
@@ -16,7 +17,7 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
 >
   <!-- Hero -->
   <section class="relative overflow-hidden mesh-navy">
-    <NodeMotif animated class="pointer-events-none absolute -right-16 -top-10 h-[460px] w-[560px] text-white/25 sm:-right-4 lg:right-8" />
+    <AnimatedNetworkBg class="pointer-events-none absolute inset-0 block h-full w-full" />
     <div class="container-page relative py-24 sm:py-32">
       <div class="max-w-3xl">
         <p class="eyebrow inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-gold-light backdrop-blur-sm" data-reveal>
