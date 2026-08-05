@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TeamCard from '../components/TeamCard.astro';
+import Icon from '../components/Icon.astro';
 import { equipo } from '../data/equipo';
 ---
 
 <BaseLayout
   title="Equipo"
-  description="Profesionales responsables detrás de AIC Consultores: contabilidad, medicina laboral y SG-SST, psicología organizacional y tecnología."
+  description="Profesionales responsables detrás de AIC Consultores: contabilidad, medicina laboral, SG-SST y psicología organizacional."
   path="/equipo/"
 >
   <section class="bg-mist py-14 dark:bg-white/[0.03]">
@@ -19,12 +20,62 @@ import { equipo } from '../data/equipo';
     </div>
   </section>
 
+  <!-- Área: Contable y Tributario -->
   <section class="container-page py-16">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {equipo.map((m) => <TeamCard miembro={m} />)}
+    <div class="mb-8 flex items-center gap-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-full bg-teal/15 text-teal-dark">
+        <Icon name="chart" class="h-5 w-5" />
+      </div>
+      <div>
+        <h2 class="font-display text-2xl text-navy dark:text-white">Contable y Tributario</h2>
+        <p class="text-sm text-ink-soft dark:text-white/60">Outsourcing contable, impuestos, revisoría fiscal y auditoría</p>
+      </div>
     </div>
-    <p class="mt-8 max-w-2xl text-sm text-ink-soft dark:text-white/60">
-      Durante la fase piloto, el equipo opera como profesionales independientes que trabajan de forma coordinada bajo un mismo acompañamiento. Los perfiles marcados "nombre por definir" corresponden a roles que el equipo está formalizando.
-    </p>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {equipo.filter((m) => m.area === 'contable-tributario').map((m) => <TeamCard miembro={m} />)}
+    </div>
+  </section>
+
+  <!-- Área: SG-SST y Medicina Laboral -->
+  <section class="bg-mist py-16 dark:bg-white/[0.03]">
+    <div class="container-page">
+      <div class="mb-8 flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-navy/10 text-navy dark:bg-white/10 dark:text-white">
+          <Icon name="shield" class="h-5 w-5" />
+        </div>
+        <div>
+          <h2 class="font-display text-2xl text-navy dark:text-white">Medicina Laboral y SG-SST</h2>
+          <p class="text-sm text-ink-soft dark:text-white/60">Exámenes ocupacionales, valoraciones médicas y seguridad en el trabajo</p>
+        </div>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        {equipo.filter((m) => m.area === 'medicina-laboral' || m.area === 'medicina-general').map((m) => <TeamCard miembro={m} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Área: Psicosocial -->
+  <section class="container-page py-16">
+    <div class="mb-8 flex items-center gap-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 text-navy">
+        <Icon name="heart" class="h-5 w-5" />
+      </div>
+      <div>
+        <h2 class="font-display text-2xl text-navy dark:text-white">Psicología Laboral y Riesgo Psicosocial</h2>
+        <p class="text-sm text-ink-soft dark:text-white/60">Batería psicosocial, pruebas DICS y bienestar organizacional</p>
+      </div>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {equipo.filter((m) => m.area === 'psicosocial').map((m) => <TeamCard miembro={m} />)}
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <section class="bg-navy py-12 dark:bg-navy-dark">
+    <div class="container-page text-center">
+      <p class="mx-auto max-w-2xl text-sm leading-relaxed text-white/70">
+        El equipo opera como profesionales independientes que trabajan de forma coordinada bajo un mismo acompañamiento interdisciplinario. Cada profesional ejerce dentro del alcance de su formación, matrícula o licencia vigente.
+      </p>
+    </div>
   </section>
 </BaseLayout>
