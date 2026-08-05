@@ -1,6 +1,6 @@
 ---
 titulo: "Evaluación y gestión del riesgo psicosocial"
-categoria: "psicosocial"
+categoria: "nomina-sgsst"
 resumen: "Identificación de factores de riesgo psicosocial y un plan de intervención realista, dentro del marco normativo vigente."
 queResuelve: "La batería de riesgo psicosocial suele aplicarse una vez y quedar archivada sin un plan de acción real. Este servicio acompaña la aplicación, el análisis y sobre todo la construcción de un plan de intervención que la empresa pueda sostener con sus propios recursos."
 incluye:

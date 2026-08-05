@@ -1,6 +1,6 @@
 ---
 titulo: "Servicios especializados"
-categoria: "especializado"
+categoria: "tramites-adicionales"
 resumen: "Auditoría, revisoría fiscal, trámites ante entidades y asesoría financiera, para necesidades puntuales fuera del acompañamiento mensual."
 queResuelve: "Algunas necesidades no son continuas sino puntuales: una revisoría fiscal obligatoria por ley, un trámite ante una entidad, o una decisión financiera importante que requiere una segunda opinión profesional. Estos servicios se prestan de forma independiente, con alcance y cronograma propios."
 incluye:

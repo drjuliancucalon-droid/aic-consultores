@@ -1,6 +1,6 @@
 ---
 titulo: "Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST)"
-categoria: "sgsst"
+categoria: "nomina-sgsst"
 resumen: "Un SG-SST implementado y sostenible en el tiempo, no solo un documento que se archiva para una visita del Ministerio."
 queResuelve: "Muchas pequeñas empresas tienen un SG-SST en papel que no se usa en el día a día. Este servicio acompaña el diseño, la implementación y el seguimiento del sistema, incluyendo las evaluaciones médicas ocupacionales, para que exista de verdad en la operación de la empresa y no solo en una carpeta."
 incluye:

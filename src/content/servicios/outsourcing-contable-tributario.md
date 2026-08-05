@@ -1,6 +1,6 @@
 ---
 titulo: "Outsourcing contable y tributario"
-categoria: "contable-tributario"
+categoria: "contabilidad-financiera"
 resumen: "Contabilidad, impuestos y nómina al día, con información clara para tomar decisiones a tiempo."
 queResuelve: "Muchas empresas pequeñas descubren un problema tributario o contable cuando ya es tarde para corregirlo sin costos adicionales. Este servicio ordena la información financiera de su empresa de forma continua, para que las obligaciones se cumplan a tiempo y usted tenga cifras confiables para decidir."
 incluye:
