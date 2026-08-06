@@ -13,15 +13,14 @@ const enlacesLegales = [
 
 <footer class="border-t border-navy/10 bg-navy text-white/85 print:hidden dark:border-white/10">
 
-  <!-- Brand watermark section -->
   <div class="relative overflow-hidden border-b border-white/10 py-14">
     <div class="container-page relative flex flex-col items-center gap-5 text-center">
 
-      <!-- Logo PNG oficial centrado en el hero del footer -->
+      <!-- Footer siempre sobre fondo navy: mix-blend-screen elimina el blanco del PNG -->
       <img
         src="/images/logo-aic.png"
         alt="Asesoría Integral — Contadores · Consultores"
-        class="h-24 w-auto object-contain"
+        class="h-24 w-auto object-contain mix-blend-screen"
         width="1536"
         height="1024"
         loading="lazy"
@@ -45,14 +44,13 @@ const enlacesLegales = [
     </div>
   </div>
 
-  <!-- Links -->
   <div class="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
     <div class="sm:col-span-2 lg:col-span-1">
-      <!-- Logo PNG oficial en columna del footer -->
+      <!-- Columna footer también sobre navy: mix-blend-screen -->
       <img
         src="/images/logo-aic.png"
         alt="Asesoría Integral"
-        class="h-14 w-auto object-contain"
+        class="h-14 w-auto object-contain mix-blend-screen"
         width="1536"
         height="1024"
         loading="lazy"
