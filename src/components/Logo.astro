@@ -1,7 +1,7 @@
 ---
-// Logo AIC Consultores — SVG reconstruido fiel al mockup aprobado
-// variant="mark"  → solo hexágono (favicon, watermark, footer)
-// variant="full"  → hexágono + separador gold + texto (header)
+// Logo AIC Consultores — v3 fiel al mockup aprobado
+// variant="mark"  → solo hexágono
+// variant="full"  → hexágono + separador + texto
 export interface Props {
   variant?: 'full' | 'mark';
   class?: string;
@@ -12,107 +12,135 @@ const { variant = 'full', class: className = '' } = Astro.props;
 {variant === 'mark' ? (
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 120 138"
+  viewBox="0 0 160 148"
   fill="none"
   role="img"
   aria-label="AIC Consultores"
   class={className}
 >
   <defs>
-    <filter id="glow-m" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="5" result="b"/>
+    <!-- Glow sutil — borde sigue nítido -->
+    <filter id="glow-mk" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <linearGradient id="gold-m" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F2CC60"/>
-      <stop offset="45%" stop-color="#C9922B"/>
-      <stop offset="100%" stop-color="#EAB84A"/>
+    <!-- Gradiente borde gold -->
+    <linearGradient id="gold-mk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#F5D060"/>
+      <stop offset="50%" stop-color="#C9922B"/>
+      <stop offset="100%" stop-color="#EDB94A"/>
     </linearGradient>
-    <linearGradient id="bg-m" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E4068"/>
-      <stop offset="100%" stop-color="#0D2640"/>
+    <!-- Gradiente fondo navy -->
+    <linearGradient id="bg-mk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#1E3F60"/>
+      <stop offset="100%" stop-color="#0C2340"/>
     </linearGradient>
   </defs>
 
-  <!-- Halo dorado difuso -->
-  <ellipse cx="60" cy="72" rx="48" ry="48" fill="#C9922B" opacity="0.22" filter="url(#glow-m)"/>
+  <!-- Halo dorado exterior suave -->
+  <ellipse cx="80" cy="74" rx="52" ry="48"
+    fill="#C9922B" opacity="0.20" filter="url(#glow-mk)"/>
 
-  <!-- Borde hexágono gold con glow -->
-  <path d="M60 4 L110 31.5 L110 106.5 L60 134 L10 106.5 L10 31.5 Z"
-        fill="url(#gold-m)" filter="url(#glow-m)"/>
+  <!-- Hexágono borde gold — más ancho y compacto -->
+  <!-- viewBox 160x148, hex proporciones ~1.08 ancho/alto -->
+  <path d="M80 6 L138 38 L138 110 L80 142 L22 110 L22 38 Z"
+    fill="url(#gold-mk)" filter="url(#glow-mk)"/>
 
-  <!-- Relleno interior navy -->
-  <path d="M60 13 L102 36.5 L102 101.5 L60 125 L18 101.5 L18 36.5 Z"
-        fill="url(#bg-m)"/>
+  <!-- Hexágono interior navy -->
+  <path d="M80 15 L130 43.5 L130 104.5 L80 133 L30 104.5 L30 43.5 Z"
+    fill="url(#bg-mk)"/>
 
-  <!-- Flecha — cabeza triangular -->
-  <polygon points="60,17 82,52 71,52 71,54 49,54 49,52 38,52" fill="white"/>
-  <!-- Flecha — cuerpo vertical -->
-  <rect x="49" y="54" width="22" height="30" rx="1.5" fill="white"/>
+  <!-- FLECHA — gruesa, sólida, ocupa ~50% del ancho -->
+  <!-- Cabeza triangular ancha -->
+  <polygon points="80,20 110,58 97,58 97,60 63,60 63,58 50,58" fill="white"/>
+  <!-- Cuerpo vertical grueso -->
+  <rect x="63" y="60" width="34" height="30" rx="2" fill="white"/>
 
-  <!-- Brújula izquierda: línea + punta -->
-  <line x1="16" y1="72" x2="40" y2="72" stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="20,72 28,68 28,76" fill="#C9922B"/>
+  <!-- Líneas brújula — sobresalen del borde del hexágono -->
+  <!-- Izquierda: desde fuera del borde hasta el cuerpo de la flecha -->
+  <line x1="10" y1="74" x2="55" y2="74"
+    stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Punta izquierda -->
+  <polygon points="14,74 22,70 22,78" fill="#C9922B"/>
 
-  <!-- Brújula derecha: línea + punta -->
-  <line x1="80" y1="72" x2="104" y2="72" stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="100,72 92,68 92,76" fill="#C9922B"/>
+  <!-- Derecha: desde el cuerpo hasta fuera del borde -->
+  <line x1="105" y1="74" x2="150" y2="74"
+    stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Punta derecha -->
+  <polygon points="146,74 138,70 138,78" fill="#C9922B"/>
 
-  <!-- IC grande blanco -->
-  <text x="60" y="110"
+  <!-- IC — grande, centrado, debajo de la flecha -->
+  <text
+    x="80" y="116"
     text-anchor="middle"
     font-family="'Inter','Helvetica Neue',Arial,sans-serif"
-    font-size="24" font-weight="800"
-    fill="white" letter-spacing="5">IC</text>
+    font-size="26" font-weight="800"
+    fill="white" letter-spacing="5"
+  >IC</text>
 </svg>
+
 ) : (
+
+<!-- Logo completo: hexágono + separador + texto -->
 <span class={`inline-flex items-center ${className}`}>
 
   <!-- Hexágono -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 138" fill="none"
-       aria-hidden="true" class="h-full w-auto shrink-0">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 148"
+    fill="none" aria-hidden="true"
+    class="h-full w-auto shrink-0">
     <defs>
-      <filter id="glow-f" x="-40%" y="-40%" width="180%" height="180%">
-        <feGaussianBlur stdDeviation="4" result="b"/>
+      <filter id="glow-fl" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="2.5" result="b"/>
         <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
-      <linearGradient id="gold-f" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#F2CC60"/>
-        <stop offset="45%" stop-color="#C9922B"/>
-        <stop offset="100%" stop-color="#EAB84A"/>
+      <linearGradient id="gold-fl" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="#F5D060"/>
+        <stop offset="50%" stop-color="#C9922B"/>
+        <stop offset="100%" stop-color="#EDB94A"/>
       </linearGradient>
-      <linearGradient id="bg-f" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1E4068"/>
-        <stop offset="100%" stop-color="#0D2640"/>
+      <linearGradient id="bg-fl" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#1E3F60"/>
+        <stop offset="100%" stop-color="#0C2340"/>
       </linearGradient>
     </defs>
-    <ellipse cx="60" cy="72" rx="48" ry="48" fill="#C9922B" opacity="0.20" filter="url(#glow-f)"/>
-    <path d="M60 4 L110 31.5 L110 106.5 L60 134 L10 106.5 L10 31.5 Z"
-          fill="url(#gold-f)" filter="url(#glow-f)"/>
-    <path d="M60 13 L102 36.5 L102 101.5 L60 125 L18 101.5 L18 36.5 Z"
-          fill="url(#bg-f)"/>
-    <polygon points="60,17 82,52 71,52 71,54 49,54 49,52 38,52" fill="white"/>
-    <rect x="49" y="54" width="22" height="30" rx="1.5" fill="white"/>
-    <line x1="16" y1="72" x2="40" y2="72" stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
-    <polygon points="20,72 28,68 28,76" fill="#C9922B"/>
-    <line x1="80" y1="72" x2="104" y2="72" stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
-    <polygon points="100,72 92,68 92,76" fill="#C9922B"/>
-    <text x="60" y="110" text-anchor="middle"
+    <ellipse cx="80" cy="74" rx="52" ry="48"
+      fill="#C9922B" opacity="0.18" filter="url(#glow-fl)"/>
+    <path d="M80 6 L138 38 L138 110 L80 142 L22 110 L22 38 Z"
+      fill="url(#gold-fl)" filter="url(#glow-fl)"/>
+    <path d="M80 15 L130 43.5 L130 104.5 L80 133 L30 104.5 L30 43.5 Z"
+      fill="url(#bg-fl)"/>
+    <polygon points="80,20 110,58 97,58 97,60 63,60 63,58 50,58" fill="white"/>
+    <rect x="63" y="60" width="34" height="30" rx="2" fill="white"/>
+    <line x1="10" y1="74" x2="55" y2="74"
+      stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="14,74 22,70 22,78" fill="#C9922B"/>
+    <line x1="105" y1="74" x2="150" y2="74"
+      stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="146,74 138,70 138,78" fill="#C9922B"/>
+    <text x="80" y="116" text-anchor="middle"
       font-family="'Inter','Helvetica Neue',Arial,sans-serif"
-      font-size="24" font-weight="800" fill="white" letter-spacing="5">IC</text>
+      font-size="26" font-weight="800" fill="white" letter-spacing="5"
+    >IC</text>
   </svg>
 
-  <!-- Separador vertical gold -->
-  <span aria-hidden="true" class="mx-3 block shrink-0 self-center"
-    style="width:1px;height:2.4em;background:linear-gradient(to bottom,transparent,#C9922B 20%,#C9922B 80%,transparent);"></span>
+  <!-- Separador vertical gold con degradado -->
+  <span aria-hidden="true"
+    class="mx-3 block shrink-0 self-center"
+    style="width:1.5px;height:2.6em;background:linear-gradient(to bottom,transparent,#C9922B 18%,#C9922B 82%,transparent);"
+  ></span>
 
   <!-- Texto -->
   <span class="flex flex-col justify-center leading-none">
-    <span class="font-display font-bold tracking-tight text-navy dark:text-white"
-          style="font-size:1.22em;line-height:1.15;">Asesoría Integral</span>
-    <span class="font-semibold uppercase text-[#C9922B]"
-          style="font-size:0.50em;letter-spacing:0.17em;margin-top:0.28em;">Contadores · Consultores</span>
+    <span
+      class="font-display font-bold tracking-tight text-navy dark:text-white"
+      style="font-size:1.25em;line-height:1.1;"
+    >Asesoría Integral</span>
+    <span
+      class="font-semibold uppercase text-[#C9922B]"
+      style="font-size:0.50em;letter-spacing:0.18em;margin-top:0.3em;"
+    >Contadores · Consultores</span>
   </span>
 
 </span>
+
 )}
