@@ -13,9 +13,7 @@ const enlacesLegales = [
 
 <footer class="border-t border-navy/10 bg-navy text-white/85 print:hidden dark:border-white/10">
 
-  <!-- Brand watermark section -->
   <div class="relative overflow-hidden border-b border-white/10 py-14">
-    <!-- Watermark fondo -->
     <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.04]" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 148" fill="none" class="h-[340px] w-auto">
         <path d="M80 6 L138 38 L138 110 L80 142 L22 110 L22 38 Z" fill="white"/>
@@ -23,16 +21,37 @@ const enlacesLegales = [
     </div>
 
     <div class="container-page relative flex flex-col items-center gap-5 text-center">
-      <!-- Logo imagen PNG — footer hero -->
-      <img
-        src="/images/logo-aic.png"
-        alt="Asesoría Integral — Contadores · Consultores"
-        class="h-20 w-auto object-contain brightness-0 invert"
-        width="1536"
-        height="1024"
-        loading="lazy"
-        decoding="async"
-      />
+      <!-- SVG inline: fondo transparente, colores gold/white nativos sobre navy -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 148"
+        fill="none" role="img" aria-label="Asesoría Integral" class="h-20 w-auto">
+        <defs>
+          <filter id="glow-fh" x="-25%" y="-25%" width="150%" height="150%">
+            <feGaussianBlur stdDeviation="2.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="gold-fh" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#F5D060"/>
+            <stop offset="50%" stop-color="#C9922B"/>
+            <stop offset="100%" stop-color="#EDB94A"/>
+          </linearGradient>
+          <linearGradient id="bg-fh" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#1E3F60"/>
+            <stop offset="100%" stop-color="#0C2340"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="80" cy="74" rx="52" ry="48" fill="#C9922B" opacity="0.20" filter="url(#glow-fh)"/>
+        <path d="M80 6 L138 38 L138 110 L80 142 L22 110 L22 38 Z" fill="url(#gold-fh)" filter="url(#glow-fh)"/>
+        <path d="M80 15 L130 43.5 L130 104.5 L80 133 L30 104.5 L30 43.5 Z" fill="url(#bg-fh)"/>
+        <polygon points="80,20 110,58 97,58 97,60 63,60 63,58 50,58" fill="white"/>
+        <rect x="63" y="60" width="34" height="30" rx="2" fill="white"/>
+        <line x1="10" y1="74" x2="55" y2="74" stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
+        <polygon points="14,74 22,70 22,78" fill="#C9922B"/>
+        <line x1="105" y1="74" x2="150" y2="74" stroke="#C9922B" stroke-width="2.5" stroke-linecap="round"/>
+        <polygon points="146,74 138,70 138,78" fill="#C9922B"/>
+        <text x="80" y="116" text-anchor="middle"
+          font-family="'Inter','Helvetica Neue',Arial,sans-serif"
+          font-size="26" font-weight="800" fill="white" letter-spacing="5">IC</text>
+      </svg>
 
       <div>
         <p class="font-display text-2xl font-bold text-white sm:text-3xl">Asesoría Integral</p>
@@ -51,18 +70,38 @@ const enlacesLegales = [
     </div>
   </div>
 
-  <!-- Links -->
   <div class="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
     <div class="sm:col-span-2 lg:col-span-1">
-      <!-- Logo footer links — PNG pequeño -->
-      <img
-        src="/images/logo-aic.png"
-        alt="Asesoría Integral"
-        class="h-10 w-auto object-contain brightness-0 invert"
-        width="1536"
-        height="1024"
-        loading="lazy"
-      />
+      <!-- SVG inline columna: IDs únicos fl2, fondo transparente -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 148"
+        fill="none" aria-hidden="true" class="h-10 w-auto">
+        <defs>
+          <filter id="glow-fl2" x="-25%" y="-25%" width="150%" height="150%">
+            <feGaussianBlur stdDeviation="2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="gold-fl2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#F5D060"/>
+            <stop offset="50%" stop-color="#C9922B"/>
+            <stop offset="100%" stop-color="#EDB94A"/>
+          </linearGradient>
+          <linearGradient id="bg-fl2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"  stop-color="#1E3F60"/>
+            <stop offset="100%" stop-color="#0C2340"/>
+          </linearGradient>
+        </defs>
+        <path d="M80 6 L138 38 L138 110 L80 142 L22 110 L22 38 Z" fill="url(#gold-fl2)" filter="url(#glow-fl2)"/>
+        <path d="M80 15 L130 43.5 L130 104.5 L80 133 L30 104.5 L30 43.5 Z" fill="url(#bg-fl2)"/>
+        <polygon points="80,20 110,58 97,58 97,60 63,60 63,58 50,58" fill="white"/>
+        <rect x="63" y="60" width="34" height="30" rx="2" fill="white"/>
+        <line x1="10" y1="74" x2="55" y2="74" stroke="#C9922B" stroke-width="2" stroke-linecap="round"/>
+        <polygon points="14,74 22,70 22,78" fill="#C9922B"/>
+        <line x1="105" y1="74" x2="150" y2="74" stroke="#C9922B" stroke-width="2" stroke-linecap="round"/>
+        <polygon points="146,74 138,70 138,78" fill="#C9922B"/>
+        <text x="80" y="116" text-anchor="middle"
+          font-family="'Inter','Helvetica Neue',Arial,sans-serif"
+          font-size="26" font-weight="800" fill="white" letter-spacing="5">IC</text>
+      </svg>
       <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/60">{site.eslogan}</p>
     </div>
 
