@@ -7,10 +7,12 @@ const currentPath = Astro.url.pathname;
 const isActive = (href: string) => currentPath === href || (href !== '/' && currentPath.startsWith(href));
 ---
 
-<header class="sticky top-0 z-50 border-b border-navy/10 bg-white/95 backdrop-blur print:hidden dark:bg-navy/95 dark:border-white/10">
-  <div class="container-page flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
+<header class="sticky top-0 z-50 border-b border-navy/10 bg-white/97 backdrop-blur print:hidden dark:bg-navy/97 dark:border-white/10">
+  <div class="container-page flex h-[4.5rem] items-center justify-between gap-4 sm:h-20">
+
+    <!-- Logo más grande y visible -->
     <a href="/" class="flex shrink-0 items-center" aria-label="AIC Consultores — inicio">
-      <Logo variant="full" class="h-10 w-auto sm:h-11" />
+      <Logo variant="full" class="h-12 w-auto sm:h-14" />
     </a>
 
     <nav aria-label="Navegación principal" class="hidden lg:block">
@@ -20,7 +22,7 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
             <a
               href={item.href}
               aria-current={isActive(item.href) ? 'page' : undefined}
-              class={`flex items-center gap-1 rounded-md px-3 py-2 transition hover:text-teal-dark dark:hover:text-gold-light ${isActive(item.href) ? 'text-teal-dark dark:text-gold-light' : ''}`}
+              class={`flex items-center gap-1 rounded-md px-3 py-2 transition hover:text-teal-dark dark:hover:text-gold-light ${isActive(item.href) ? 'text-teal-dark dark:text-gold-light font-semibold' : ''}`}
             >
               {item.label}
               {item.children && <Icon name="chevron-down" class="h-3.5 w-3.5 opacity-60" />}
@@ -52,11 +54,15 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
         <Icon name="sun" class="block h-5 w-5 dark:hidden" />
       </button>
 
-      <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" class="btn-whatsapp hidden sm:inline-flex" data-analytics-event="clic_whatsapp" data-analytics-origin="header">
+      <a href={whatsappHref()} target="_blank" rel="noopener noreferrer"
+         class="btn-whatsapp hidden sm:inline-flex"
+         data-analytics-event="clic_whatsapp" data-analytics-origin="header">
         <Icon name="whatsapp" class="h-4 w-4" />
         <span class="hidden md:inline">WhatsApp</span>
       </a>
-      <a href="/agendar/" class="btn-primary hidden sm:inline-flex" data-analytics-event="clic_agendar" data-analytics-origin="header">
+
+      <a href="/agendar/" class="btn-primary hidden sm:inline-flex"
+         data-analytics-event="clic_agendar" data-analytics-origin="header">
         Agendar diagnóstico
       </a>
 
@@ -73,7 +79,11 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-navy/10 bg-white px-5 pb-6 pt-2 dark:border-white/10 dark:bg-navy lg:hidden">
+  <div id="mobile-menu" class="hidden border-t border-navy/10 bg-white px-5 pb-6 pt-3 dark:border-white/10 dark:bg-navy lg:hidden">
+    <!-- Logo centrado en menú móvil abierto -->
+    <div class="mb-4 flex justify-center border-b border-navy/10 pb-4 dark:border-white/10">
+      <Logo variant="full" class="h-12 w-auto" />
+    </div>
     <nav aria-label="Navegación móvil">
       <ul class="flex flex-col divide-y divide-navy/10 dark:divide-white/10">
         {navPrincipal.map((item) => (
@@ -91,10 +101,12 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
       </ul>
     </nav>
     <div class="mt-4 flex flex-col gap-2">
-      <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-analytics-event="clic_whatsapp" data-analytics-origin="menu_movil">
+      <a href={whatsappHref()} target="_blank" rel="noopener noreferrer"
+         class="btn-whatsapp" data-analytics-event="clic_whatsapp" data-analytics-origin="menu_movil">
         <Icon name="whatsapp" class="h-4 w-4" /> Escribir por WhatsApp
       </a>
-      <a href="/agendar/" class="btn-primary" data-analytics-event="clic_agendar" data-analytics-origin="menu_movil">Agendar diagnóstico inicial</a>
+      <a href="/agendar/" class="btn-primary"
+         data-analytics-event="clic_agendar" data-analytics-origin="menu_movil">Agendar diagnóstico inicial</a>
     </div>
   </div>
 </header>
