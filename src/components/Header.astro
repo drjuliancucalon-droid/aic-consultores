@@ -7,30 +7,29 @@ const currentPath = Astro.url.pathname;
 const isActive = (href: string) => currentPath === href || (href !== '/' && currentPath.startsWith(href));
 ---
 
-<header class="sticky top-0 z-50 border-b border-navy/10 bg-white/95 backdrop-blur print:hidden">
-  <div class="container-page flex h-16 items-center justify-between gap-4 sm:h-20">
-    <a href="/" class="flex shrink-0 items-center gap-2">
-      <Logo class="h-11 w-auto sm:h-12" />
-      <span class="sr-only">{site.nombreCorto} — inicio</span>
+<header class="sticky top-0 z-50 border-b border-navy/10 bg-white/95 backdrop-blur print:hidden dark:bg-navy/95 dark:border-white/10">
+  <div class="container-page flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
+    <a href="/" class="flex shrink-0 items-center" aria-label="AIC Consultores — inicio">
+      <Logo variant="full" class="h-10 w-auto sm:h-11" />
     </a>
 
     <nav aria-label="Navegación principal" class="hidden lg:block">
-      <ul class="flex items-center gap-1 text-[0.95rem] font-medium text-navy">
+      <ul class="flex items-center gap-1 text-[0.95rem] font-medium text-navy dark:text-white/90">
         {navPrincipal.map((item) => (
           <li class="group relative">
             <a
               href={item.href}
               aria-current={isActive(item.href) ? 'page' : undefined}
-              class={`flex items-center gap-1 rounded-md px-3 py-2 transition hover:text-teal-dark ${isActive(item.href) ? 'text-teal-dark' : ''}`}
+              class={`flex items-center gap-1 rounded-md px-3 py-2 transition hover:text-teal-dark dark:hover:text-gold-light ${isActive(item.href) ? 'text-teal-dark dark:text-gold-light' : ''}`}
             >
               {item.label}
               {item.children && <Icon name="chevron-down" class="h-3.5 w-3.5 opacity-60" />}
             </a>
             {item.children && (
-              <ul class="invisible absolute left-0 top-full z-10 w-64 -translate-y-1 rounded-xl border border-navy/10 bg-white p-2 opacity-0 shadow-cardHover transition duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+              <ul class="invisible absolute left-0 top-full z-10 w-64 -translate-y-1 rounded-xl border border-navy/10 bg-white p-2 opacity-0 shadow-cardHover transition duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 dark:border-white/10 dark:bg-navy-light">
                 {item.children.map((child) => (
                   <li>
-                    <a href={child.href} class="block rounded-lg px-3 py-2 text-sm text-navy hover:bg-mist">
+                    <a href={child.href} class="block rounded-lg px-3 py-2 text-sm text-navy hover:bg-mist dark:text-white dark:hover:bg-white/5">
                       {child.label}
                     </a>
                   </li>
@@ -46,7 +45,7 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
       <button
         id="theme-toggle"
         type="button"
-        class="rounded-full p-2 text-navy transition hover:bg-mist"
+        class="rounded-full p-2 text-navy transition hover:bg-mist dark:text-white dark:hover:bg-white/10"
         aria-label="Cambiar entre modo claro y oscuro"
       >
         <Icon name="moon" class="hidden h-5 w-5 dark:block" />
@@ -57,14 +56,14 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
         <Icon name="whatsapp" class="h-4 w-4" />
         <span class="hidden md:inline">WhatsApp</span>
       </a>
-      <a href="/contacto/" class="btn-primary hidden sm:inline-flex">
+      <a href="/agendar/" class="btn-primary hidden sm:inline-flex" data-analytics-event="clic_agendar" data-analytics-origin="header">
         Agendar diagnóstico
       </a>
 
       <button
         id="mobile-menu-button"
         type="button"
-        class="rounded-md p-2 text-navy hover:bg-mist lg:hidden"
+        class="rounded-md p-2 text-navy hover:bg-mist dark:text-white dark:hover:bg-white/10 lg:hidden"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Abrir menú de navegación"
@@ -74,16 +73,16 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-navy/10 bg-white px-5 pb-6 pt-2 lg:hidden">
+  <div id="mobile-menu" class="hidden border-t border-navy/10 bg-white px-5 pb-6 pt-2 dark:border-white/10 dark:bg-navy lg:hidden">
     <nav aria-label="Navegación móvil">
-      <ul class="flex flex-col divide-y divide-navy/10">
+      <ul class="flex flex-col divide-y divide-navy/10 dark:divide-white/10">
         {navPrincipal.map((item) => (
           <li class="py-1">
-            <a href={item.href} class="block rounded-md py-2.5 font-medium text-navy">{item.label}</a>
+            <a href={item.href} class="block rounded-md py-2.5 font-medium text-navy dark:text-white">{item.label}</a>
             {item.children && (
-              <ul class="ml-3 flex flex-col border-l border-navy/10 pl-3">
+              <ul class="ml-3 flex flex-col border-l border-navy/10 pl-3 dark:border-white/10">
                 {item.children.map((child) => (
-                  <li><a href={child.href} class="block py-2 text-sm text-ink-soft">{child.label}</a></li>
+                  <li><a href={child.href} class="block py-2 text-sm text-ink-soft dark:text-white/70">{child.label}</a></li>
                 ))}
               </ul>
             )}
@@ -95,7 +94,7 @@ const isActive = (href: string) => currentPath === href || (href !== '/' && curr
       <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-analytics-event="clic_whatsapp" data-analytics-origin="menu_movil">
         <Icon name="whatsapp" class="h-4 w-4" /> Escribir por WhatsApp
       </a>
-      <a href="/contacto/" class="btn-primary">Agendar diagnóstico inicial</a>
+      <a href="/agendar/" class="btn-primary" data-analytics-event="clic_agendar" data-analytics-origin="menu_movil">Agendar diagnóstico inicial</a>
     </div>
   </div>
 </header>

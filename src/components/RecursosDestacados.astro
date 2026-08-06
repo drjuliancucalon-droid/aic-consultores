@@ -1,0 +1,98 @@
+---
+// Sección de recursos destacados para el homepage
+// Muestra las herramientas gratuitas de mayor valor para el visitante
+import Icon from './Icon.astro';
+
+const recursos = [
+  {
+    categoria: 'Tributario',
+    categoriaColor: 'bg-teal-dark/10 text-teal-dark dark:bg-teal-dark/20 dark:text-teal-light',
+    icono: 'calendar' as const,
+    iconoColor: 'text-teal-dark dark:text-teal-light',
+    titulo: 'Calendario tributario DIAN 2026',
+    descripcion: 'Fechas de renta, IVA, retenciones y SIMPLE. Basado en el calendario oficial. Filtra por tipo de contribuyente.',
+    href: '/calendario-tributario/',
+    badge: 'Actualizado 2026',
+  },
+  {
+    categoria: 'Laboral',
+    categoriaColor: 'bg-navy/8 text-navy border-navy/15 dark:bg-white/8 dark:text-white dark:border-white/15',
+    icono: 'users' as const,
+    iconoColor: 'text-navy dark:text-white',
+    titulo: 'Calculadora de costo laboral',
+    descripcion: '¿Cuánto cuesta realmente un empleado en 2026? Salario, seguridad social, prestaciones y parafiscales en segundos.',
+    href: '/calculadora-costo-laboral/',
+    badge: 'Salario mín. $1.423.500',
+  },
+  {
+    categoria: 'SST · Seguridad',
+    categoriaColor: 'bg-emerald-600/10 text-emerald-700 dark:bg-emerald-600/15 dark:text-emerald-400',
+    icono: 'shield' as const,
+    iconoColor: 'text-emerald-700 dark:text-emerald-400',
+    titulo: 'Recursos SG-SST',
+    descripcion: 'Guías, formatos y documentos para el Sistema de Gestión de Seguridad y Salud en el Trabajo según la normativa colombiana.',
+    href: '/recursos/',
+    badge: 'Descarga gratuita',
+  },
+];
+---
+
+<section class="bg-mist py-16 dark:bg-white/[0.02]">
+  <div class="container-page">
+    <!-- Encabezado -->
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between" data-reveal>
+      <div>
+        <p class="eyebrow">Herramientas gratuitas</p>
+        <h2 class="mt-1 font-display text-3xl text-navy dark:text-white">
+          Recursos que le ahorran tiempo
+        </h2>
+        <p class="mt-2 max-w-xl text-ink-soft dark:text-white/70">
+          Calculadoras, calendarios y guías diseñadas para que pymes colombianas tomen mejores decisiones financieras y laborales.
+        </p>
+      </div>
+      <a
+        href="/recursos/"
+        class="shrink-0 text-sm font-semibold text-teal-dark underline-offset-2 hover:underline dark:text-gold-light"
+      >
+        Ver todos los recursos →
+      </a>
+    </div>
+
+    <!-- Tarjetas -->
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {recursos.map((rec, i) => (
+        <a
+          href={rec.href}
+          class="group flex flex-col rounded-2xl border border-navy/8 bg-white p-6 shadow-card transition hover:-translate-y-0.5 hover:border-teal-dark/30 hover:shadow-cardHover dark:border-white/8 dark:bg-navy-light dark:hover:border-gold-light/30"
+          data-reveal
+          data-reveal-delay={i * 80}
+        >
+          <!-- Categoría + badge -->
+          <div class="flex items-center justify-between">
+            <span class={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${rec.categoriaColor}`}>
+              {rec.categoria}
+            </span>
+            <span class="rounded-full bg-gold/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:bg-gold/20 dark:text-gold-light">
+              {rec.badge}
+            </span>
+          </div>
+
+          <!-- Ícono -->
+          <div class="mt-5 flex h-11 w-11 items-center justify-center rounded-xl bg-navy/[0.06] dark:bg-white/[0.07]">
+            <Icon name={rec.icono} class={`h-5 w-5 ${rec.iconoColor}`} />
+          </div>
+
+          <!-- Texto -->
+          <h3 class="mt-4 font-display text-lg text-navy dark:text-white">{rec.titulo}</h3>
+          <p class="mt-1.5 flex-1 text-sm leading-relaxed text-ink-soft dark:text-white/60">{rec.descripcion}</p>
+
+          <!-- CTA inline -->
+          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-dark transition group-hover:gap-2.5 dark:text-gold-light">
+            Ver recurso
+            <Icon name="arrow-right" class="h-4 w-4" />
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
