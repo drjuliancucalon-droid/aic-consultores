@@ -16,7 +16,7 @@ export const site = {
   whatsappNumero: import.meta.env.PUBLIC_WHATSAPP_NUMBER || '573182213979',
   whatsappMensaje:
     import.meta.env.PUBLIC_WHATSAPP_MENSAJE || 'Hola, quiero agendar un diagnóstico inicial gratuito.',
-  agendaUrl: import.meta.env.PUBLIC_AGENDA_URL || 'https://cal.com/aic-consultores/diagnostico-inicial',
+  agendaUrl: import.meta.env.PUBLIC_AGENDA_URL || 'https://cal.com/julian-cucalon-kpdhib',
   formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT || '/api/contacto',
   // PLACEHOLDER — se completa cuando el equipo defina redes activas.
   redes: {
@@ -45,7 +45,8 @@ export const navPrincipal: NavItem[] = [
   { label: 'Equipo', href: '/equipo/' },
   { label: 'Recursos', href: '/recursos/' },
   { label: 'Contacto', href: '/contacto/' },
-];
+  { label: 'Agendar', href: '/agendar/' },
+] as const;
 
 // Los "tres pilares" que resumen la propuesta de valor en el inicio.
 export const pilares = [
