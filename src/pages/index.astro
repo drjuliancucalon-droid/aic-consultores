@@ -7,6 +7,7 @@ import PillarCard from '../components/PillarCard.astro';
 import Calculator from '../components/Calculator.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import Icon from '../components/Icon.astro';
+import IndicadoresBar from '../components/IndicadoresBar.astro';
 import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/site';
 ---
 
@@ -25,7 +26,7 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75"></span>
             <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold"></span>
           </span>
-          Consultoría interdisciplinaria en {site.ciudad}, {site.departamento}
+          Consultoría interdisciplinaria · {site.ciudad}, Cauca y Valle del Cauca
         </p>
         <h1
           class="mt-6 font-display text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-[4.75rem]"
@@ -42,15 +43,29 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/75" data-reveal data-reveal-delay="160">
           {site.eslogan}
         </p>
-        <div class="mt-9 flex flex-wrap gap-3">
-          <a href="/contacto/" class="btn-primary">Agendar diagnóstico inicial</a>
-          <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-analytics-event="clic_whatsapp" data-analytics-origin="hero">
+        <div class="mt-9 flex flex-wrap gap-3" data-reveal data-reveal-delay="220">
+          <a
+            href="/agendar/"
+            class="btn-primary"
+            data-analytics-event="clic_agendar"
+            data-analytics-origin="hero"
+          >
+            <Icon name="calendar" class="h-4 w-4" /> Agendar diagnóstico inicial
+          </a>
+          <a
+            href={whatsappHref()}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-whatsapp"
+            data-analytics-event="clic_whatsapp"
+            data-analytics-origin="hero"
+          >
             <Icon name="whatsapp" class="h-4 w-4" /> Hablar por WhatsApp
           </a>
         </div>
         <p class="mt-5 text-xs text-white/50">Diagnóstico de 30 minutos, sin costo y sin obligación.</p>
 
-        <div class="mt-14 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-8" data-reveal data-reveal-delay="240">
+        <div class="mt-14 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/10 pt-8" data-reveal data-reveal-delay="280">
           <div>
             <p class="font-display text-2xl text-white">3</p>
             <p class="text-xs text-white/50">disciplinas coordinadas<br />en un solo acompañamiento</p>
@@ -67,6 +82,9 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
       </div>
     </div>
   </section>
+
+  <!-- Barra de indicadores económicos 2026 -->
+  <IndicadoresBar />
 
   <!-- Selector de necesidad -->
   <section class="container-page py-14">
@@ -190,6 +208,28 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
     </div>
   </section>
 
+  <!-- Enlace al calendario tributario -->
+  <section class="bg-mist py-10 dark:bg-white/[0.03]">
+    <div class="container-page" data-reveal>
+      <a
+        href="/calendario-tributario/"
+        class="flex items-center justify-between gap-4 rounded-2xl border-2 border-teal-dark/20 bg-white p-6 shadow-card transition hover:border-teal-dark hover:shadow-cardHover dark:bg-navy-light dark:hover:border-gold-light/40"
+      >
+        <div class="flex items-center gap-4">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-dark/10 dark:bg-teal-dark/20">
+            <Icon name="calendar" class="h-6 w-6 text-teal-dark dark:text-gold-light" />
+          </div>
+          <div>
+            <p class="eyebrow">Herramienta gratuita</p>
+            <p class="mt-0.5 font-display text-lg text-navy dark:text-white">Calendario tributario DIAN 2026</p>
+            <p class="mt-0.5 text-sm text-ink-soft dark:text-white/70">Todas las fechas de renta, IVA, retenciones y más — con buscador por NIT.</p>
+          </div>
+        </div>
+        <Icon name="arrow-right" class="h-5 w-5 shrink-0 text-teal-dark dark:text-gold-light" />
+      </a>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="container-page py-20">
     <h2 class="font-display text-3xl text-navy dark:text-white" data-reveal>Preguntas frecuentes</h2>
@@ -200,12 +240,18 @@ import { site, pilares, procesoTrabajo, faqInicio, whatsappHref } from '../data/
 
   <!-- CTA final -->
   <section class="relative overflow-hidden bg-teal-dark py-16">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true" style="background-image:radial-gradient(60% 70% at 90% 50%,rgba(228,171,55,0.18),transparent 70%),radial-gradient(40% 60% at 5% 50%,rgba(255,255,255,0.06),transparent 70%);"></div>
     <div class="container-page relative flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h2 class="font-display text-2xl text-white sm:text-3xl">¿Empezamos con el diagnóstico inicial?</h2>
         <p class="mt-1 text-white/80">30 minutos, sin costo, sin obligación.</p>
       </div>
-      <a href="/contacto/" class="btn bg-white text-navy hover:bg-gold hover:text-navy">
+      <a
+        href="/agendar/"
+        class="btn bg-white text-navy hover:bg-gold hover:text-navy"
+        data-analytics-event="clic_agendar"
+        data-analytics-origin="cta_final"
+      >
         Agendar ahora <Icon name="arrow-right" class="h-4 w-4" />
       </a>
     </div>

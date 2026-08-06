@@ -1,0 +1,230 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site, whatsappHref } from '../data/site';
+
+// Datos DIAN 2026 — Fuentes: Resoluciones DIAN, Decreto 1736/2025
+// Actualizar cada año con el calendario oficial publicado en dian.gov.co
+const indicadores = [
+  { label: 'Salario mínimo mensual', valor: '$1.423.500', fuente: 'Decreto 2343/2025' },
+  { label: 'Subsidio de transporte', valor: '$200.800', fuente: 'Decreto 2344/2025' },
+  { label: 'UVT 2026', valor: '$52.374', fuente: 'Res. DIAN 000187/2025' },
+  { label: 'Tasa de cambio referencia', valor: 'dian.gov.co', fuente: 'Consultar DIAN' },
+];
+
+const secciones = [
+  {
+    id: 'grandes-contribuyentes',
+    titulo: 'Impuesto de renta — Grandes Contribuyentes',
+    descripcion: 'Tres cuotas distribuidas entre febrero, abril y junio de 2026.',
+    color: 'navy',
+    filas: [
+      { evento: '1.ª cuota', desde: '10 feb', hasta: '23 feb', nota: 'Según último dígito NIT' },
+      { evento: 'Declaración + 2.ª cuota', desde: '13 abr', hasta: '24 abr', nota: 'Según último dígito NIT' },
+      { evento: '3.ª cuota', desde: '10 jun', hasta: '24 jun', nota: 'Según último dígito NIT' },
+    ],
+  },
+  {
+    id: 'personas-juridicas',
+    titulo: 'Impuesto de renta — Personas Jurídicas',
+    descripcion: 'Dos cuotas: declaración y primera cuota en mayo, segunda cuota en julio.',
+    color: 'teal',
+    filas: [
+      { evento: 'Declaración + 1.ª cuota', desde: '12 may', hasta: '26 may', nota: 'Según último dígito NIT' },
+      { evento: '2.ª cuota', desde: '9 jul', hasta: '23 jul', nota: 'Según último dígito NIT' },
+    ],
+  },
+  {
+    id: 'personas-naturales',
+    titulo: 'Impuesto de renta — Personas Naturales y Sucesiones Ilíquidas',
+    descripcion: 'Vencimientos escalonados del 12 de agosto al 26 de octubre, según los dos últimos dígitos del NIT.',
+    color: 'gold',
+    filas: [
+      { evento: 'Dígitos 01–12', desde: '12 ago', hasta: '20 ago', nota: '' },
+      { evento: 'Dígitos 13–32', desde: '21 ago', hasta: '4 sep', nota: '' },
+      { evento: 'Dígitos 33–52', desde: '5 sep', hasta: '18 sep', nota: '' },
+      { evento: 'Dígitos 53–72', desde: '19 sep', hasta: '2 oct', nota: '' },
+      { evento: 'Dígitos 73–92', desde: '5 oct', hasta: '20 oct', nota: '' },
+      { evento: 'Dígitos 93–00', desde: '21 oct', hasta: '26 oct', nota: '' },
+    ],
+  },
+  {
+    id: 'iva-retencion',
+    titulo: 'IVA bimestral y Retención en la Fuente mensual',
+    descripcion: 'Obligaciones de flujo constante. La retención se declara y paga cada mes; el IVA para responsables bimestrales cada dos meses.',
+    color: 'teal',
+    filas: [
+      { evento: 'Retención en la fuente ene', desde: '6 feb', hasta: '20 feb', nota: 'Según dígito NIT' },
+      { evento: 'IVA bimestral ene–feb', desde: '6 mar', hasta: '20 mar', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente feb', desde: '6 mar', hasta: '20 mar', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente mar', desde: '8 abr', hasta: '22 abr', nota: 'Según dígito NIT' },
+      { evento: 'IVA bimestral mar–abr', desde: '8 may', hasta: '22 may', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente abr', desde: '8 may', hasta: '22 may', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente may', desde: '9 jun', hasta: '23 jun', nota: 'Según dígito NIT' },
+      { evento: 'IVA bimestral may–jun', desde: '8 jul', hasta: '22 jul', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente jun', desde: '8 jul', hasta: '22 jul', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente jul', desde: '7 ago', hasta: '21 ago', nota: 'Según dígito NIT' },
+      { evento: 'IVA bimestral jul–ago', desde: '8 sep', hasta: '22 sep', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente ago', desde: '8 sep', hasta: '22 sep', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente sep', desde: '8 oct', hasta: '22 oct', nota: 'Según dígito NIT' },
+      { evento: 'IVA bimestral sep–oct', desde: '6 nov', hasta: '20 nov', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente oct', desde: '6 nov', hasta: '20 nov', nota: 'Según dígito NIT' },
+      { evento: 'Retención en la fuente nov', desde: '8 dic', hasta: '19 dic', nota: 'Según dígito NIT' },
+      { evento: 'IVA bimestral nov–dic', desde: 'Feb 2027', hasta: 'Feb 2027', nota: 'Primer bimestre año siguiente' },
+    ],
+  },
+  {
+    id: 'regimen-simple',
+    titulo: 'Régimen SIMPLE — Anticipos bimestrales 2026',
+    descripcion: 'Los inscritos en el SIMPLE deben pagar el anticipo bimestral del impuesto unificado.',
+    color: 'navy',
+    filas: [
+      { evento: 'Anticipo bimestral ene–feb', desde: '6 mar', hasta: '20 mar', nota: 'Según dígito NIT' },
+      { evento: 'Anticipo bimestral mar–abr', desde: '8 may', hasta: '22 may', nota: 'Según dígito NIT' },
+      { evento: 'Anticipo bimestral may–jun', desde: '9 jun', hasta: '23 jun', nota: 'Según dígito NIT' },
+      { evento: 'Anticipo bimestral jul–ago', desde: '8 sep', hasta: '22 sep', nota: 'Según dígito NIT' },
+      { evento: 'Anticipo bimestral sep–oct', desde: '6 nov', hasta: '20 nov', nota: 'Según dígito NIT' },
+      { evento: 'Anticipo bimestral nov–dic', desde: 'Feb 2027', hasta: 'Feb 2027', nota: 'Declaración AG 2026' },
+    ],
+  },
+];
+
+const colorMap: Record<string, string> = {
+  navy: 'bg-navy/[0.06] text-navy border-navy/15 dark:bg-white/[0.06] dark:text-white dark:border-white/15',
+  teal: 'bg-teal-dark/[0.07] text-teal-dark border-teal-dark/15 dark:bg-teal-dark/20 dark:text-teal-light dark:border-teal-dark/30',
+  gold: 'bg-gold/[0.10] text-amber-800 border-gold/20 dark:bg-gold/[0.15] dark:text-gold-light dark:border-gold/25',
+};
+---
+
+<BaseLayout
+  title="Calendario Tributario DIAN 2026 — Colombia"
+  description="Fechas de vencimiento de renta, IVA, retenciones, SIMPLE y más obligaciones tributarias en Colombia 2026. Datos oficiales DIAN actualizados."
+  path="/calendario-tributario/"
+>
+  <!-- Hero -->
+  <section class="bg-mist py-12 dark:bg-white/[0.03]">
+    <div class="container-page">
+      <p class="eyebrow" data-reveal>Recurso gratuito</p>
+      <h1 class="mt-2 max-w-3xl font-display text-4xl text-navy dark:text-white" data-reveal data-reveal-delay="60">
+        Calendario tributario DIAN 2026
+      </h1>
+      <p class="mt-3 max-w-2xl text-ink-soft dark:text-white/70" data-reveal data-reveal-delay="120">
+        Fechas de vencimiento para renta, IVA, retenciones, SIMPLE y demás obligaciones. Basado en el calendario oficial publicado por la DIAN. Actualizado a julio de 2026.
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <a
+          href="https://www.dian.gov.co/Paginas/CalendarioTributario.aspx"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-xs font-semibold text-navy transition hover:border-teal-dark dark:border-white/15 dark:bg-navy-light dark:text-white"
+        >
+          <Icon name="shield" class="h-3.5 w-3.5 text-teal-dark dark:text-gold-light" />
+          Fuente oficial: dian.gov.co
+        </a>
+        <a
+          href="/agendar/"
+          class="btn-primary text-xs"
+          data-analytics-event="clic_agendar"
+          data-analytics-origin="calendario_tributario"
+        >
+          <Icon name="calendar" class="h-3.5 w-3.5" /> Agendar diagnóstico
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Indicadores clave -->
+  <section class="container-page py-10">
+    <h2 class="font-display text-xl text-navy dark:text-white" data-reveal>Indicadores económicos 2026</h2>
+    <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {indicadores.map((ind) => (
+        <div class="rounded-xl border border-navy/10 bg-white p-5 shadow-card dark:border-white/10 dark:bg-navy-light">
+          <p class="text-xs font-semibold uppercase tracking-wider text-teal-dark dark:text-gold-light">{ind.label}</p>
+          <p class="mt-1 font-display text-2xl text-navy dark:text-white">{ind.valor}</p>
+          <p class="mt-0.5 text-[11px] text-ink-soft dark:text-white/50">{ind.fuente}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Secciones del calendario -->
+  <section class="container-page space-y-12 pb-20">
+    {secciones.map((sec) => (
+      <div id={sec.id}>
+        <div class={`mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-wider ${colorMap[sec.color]}`}>
+          <Icon name="calendar" class="h-3.5 w-3.5" />
+          {sec.titulo}
+        </div>
+        <p class="mb-4 text-sm text-ink-soft dark:text-white/60">{sec.descripcion}</p>
+        <div class="overflow-x-auto rounded-xl border border-navy/10 dark:border-white/10">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-navy/10 bg-navy/[0.03] text-left dark:border-white/10 dark:bg-white/[0.03]">
+                <th class="px-4 py-3 font-semibold text-navy dark:text-white">Obligación</th>
+                <th class="px-4 py-3 font-semibold text-navy dark:text-white">Desde</th>
+                <th class="px-4 py-3 font-semibold text-navy dark:text-white">Hasta</th>
+                <th class="hidden px-4 py-3 font-semibold text-navy dark:text-white sm:table-cell">Nota</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-navy/5 dark:divide-white/5">
+              {sec.filas.map((fila) => (
+                <tr class="bg-white transition hover:bg-mist dark:bg-navy-light dark:hover:bg-white/[0.04]">
+                  <td class="px-4 py-3 font-medium text-navy dark:text-white">{fila.evento}</td>
+                  <td class="px-4 py-3 text-ink-soft dark:text-white/70">{fila.desde}</td>
+                  <td class="px-4 py-3 font-semibold text-teal-dark dark:text-gold-light">{fila.hasta}</td>
+                  <td class="hidden px-4 py-3 text-xs text-ink-soft dark:text-white/50 sm:table-cell">{fila.nota}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- Aviso legal + CTA -->
+  <section class="bg-mist pb-16 dark:bg-white/[0.03]">
+    <div class="container-page">
+      <div class="rounded-xl2 border border-navy/10 bg-white p-6 dark:border-white/10 dark:bg-navy-light">
+        <div class="flex items-start gap-3">
+          <Icon name="shield" class="mt-0.5 h-5 w-5 shrink-0 text-teal-dark dark:text-gold-light" />
+          <div>
+            <p class="font-semibold text-navy dark:text-white">Aviso importante</p>
+            <p class="mt-1 text-sm text-ink-soft dark:text-white/70">
+              Este calendario es orientativo y se basa en la información oficial publicada por la DIAN. Las fechas exactas de vencimiento dependen del último o los dos últimos dígitos de su NIT.
+              Para su situación específica, consulte siempre con un contador o asesor tributario habilitado.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="font-display text-xl text-navy dark:text-white">¿Necesita ayuda con sus obligaciones tributarias?</p>
+          <p class="mt-1 text-sm text-ink-soft dark:text-white/70">30 minutos de diagnóstico, sin costo ni obligación.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="/agendar/"
+            class="btn-primary"
+            data-analytics-event="clic_agendar"
+            data-analytics-origin="calendario_cta_final"
+          >
+            <Icon name="calendar" class="h-4 w-4" /> Agendar diagnóstico
+          </a>
+          <a
+            href={whatsappHref()}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-whatsapp"
+            data-analytics-event="clic_whatsapp"
+            data-analytics-origin="calendario_cta_final"
+          >
+            <Icon name="whatsapp" class="h-4 w-4" /> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
